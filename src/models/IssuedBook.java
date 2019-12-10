@@ -1,18 +1,33 @@
 package models;
 
-public class IssuedBookModel {
+public class IssuedBook {
 
-    private enum Status{
-        ISSUED(1),
-        FINED(2);
+    public enum Status{
+        ISSUED(1, "Issued"),
+        FINED(2, "Fined");
 
         private final int id;
 
-        Status(int id){
+        private final String name;
+
+        Status(int id, String name){
             this.id = id;
+            this.name = name;
         }
 
     };
+
+    IssuedBook(){}
+
+    IssuedBook(Status status, int user_id, int book_id, int period_id, String due){
+        this.setStatus(status);
+        this.setUserId(user_id);
+        this.setBookId(book_id);
+        this.setPeriodId(period_id);
+        this.setDue(due);
+    }
+
+    private int id;
 
     private Status status;
 
@@ -23,6 +38,10 @@ public class IssuedBookModel {
     private int period_id;
 
     private String due;
+
+    public int getId() {
+        return id;
+    }
 
     public Status getStatus() {
         return status;

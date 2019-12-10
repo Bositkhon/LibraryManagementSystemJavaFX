@@ -7,8 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.User;
 
 import java.sql.Connection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main extends Application {
 
@@ -18,10 +21,22 @@ public class Main extends Application {
 //        primaryStage.setTitle("Library Management System");
 //        primaryStage.setScene(new Scene(root));
 //        primaryStage.show();
-//
-//        primaryStage = FXMLLoader.load(getClass().getResource("./../layouts/login_layout.fxml"));
-//        primaryStage.setTitle("Login");
-//        primaryStage.show();
+
+        primaryStage = FXMLLoader.load(getClass().getResource("./../layouts/create_user_layout.fxml"));
+        primaryStage.setTitle("Login");
+        primaryStage.show();
+        User user = new User();
+        System.out.println(user.isNewRecord());
+        user.setUsername("Bositkhon");
+        user.setPassword("bosit4me");
+        user.setRoleID(1);
+        if(user.save()){
+            System.out.println("User has been added");
+        }else{
+            System.out.println("Something wrong");
+        }
+
+
     }
 
 

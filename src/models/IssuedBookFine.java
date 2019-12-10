@@ -3,12 +3,24 @@ package models;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class IssuedBookFineModel {
+public class IssuedBookFine {
+
+    private int id;
 
     private int issued_book_id;
 
     private String reason;
 
+    IssuedBookFine(){}
+
+    IssuedBookFine(int issued_book_id, String reason){
+        this.setIssuedBookId(issued_book_id);
+        this.setReason(reason);
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public int getIssuedBookId() {
         return issued_book_id;

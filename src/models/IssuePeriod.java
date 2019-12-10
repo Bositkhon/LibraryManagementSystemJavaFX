@@ -3,9 +3,24 @@ package models;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RoleModel {
+public class IssuePeriod {
+
+    private int id;
 
     private String title;
+
+    private int days;
+
+    IssuePeriod(){}
+
+    IssuePeriod(String title, int days){
+        this.setTitle(title);
+        this.setDays(days);
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public String getTitle() {
         return title;
@@ -16,7 +31,7 @@ public class RoleModel {
             throw new IllegalArgumentException("Title can not be empty");
         }
 
-        Pattern pattern = Pattern.compile("<^\\w+$>");
+        Pattern pattern = Pattern.compile("^\\w+$");
         Matcher matcher = pattern.matcher(title);
 
         if(!matcher.find()){
@@ -25,10 +40,11 @@ public class RoleModel {
         this.title = title;
     }
 
-    @Override
-    public String toString() {
-        return String.format("%s:%s\n",
-                "Title", this.getTitle()
-        );
+    public int getDays() {
+        return days;
+    }
+
+    public void setDays(int days) {
+        this.days = days;
     }
 }

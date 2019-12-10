@@ -2,7 +2,9 @@ package models;
 
 import java.text.DateFormat;
 
-public class ReservationModel {
+public class Reservation {
+
+    private int id;
 
     private int user_id;
 
@@ -10,6 +12,17 @@ public class ReservationModel {
 
     private String reserve_date;
 
+    Reservation(){}
+
+    Reservation(int user_id, int book_id, String reserve_date){
+        this.setUserId(user_id);
+        this.setBookId(book_id);
+        this.setReserveDate(reserve_date);
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public int getUserId() {
         return user_id;
