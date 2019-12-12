@@ -8,10 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,7 +22,10 @@ public class User extends BaseModel implements DataAccessInterface<User> {
 
     private int role_id;
 
-    private ArrayList<String> errors;
+    @Override
+    public String getTableName() {
+        return "USERS";
+    }
 
     public User(){
         super();
@@ -98,6 +98,16 @@ public class User extends BaseModel implements DataAccessInterface<User> {
         this.role_id = role_id;
     }
 
+    public Properties getAttributeTypes(){
+        Properties properties = new Properties();
+        properties.setProperty("ID", "integer");
+        properties.setProperty("USERNAME", "string");
+        properties.setProperty("PASSWORD", "string");
+        properties.setProperty("ROLE_ID", "integer");
+        properties.setProperty("CREATED_AT", "timestamp");
+        return properties;
+    }
+
     @Override
     public String toString() {
         return String.format("%s:%s\n%s:%s\n%s:%s",
@@ -161,35 +171,23 @@ public class User extends BaseModel implements DataAccessInterface<User> {
     public boolean save() {
         if(this.isNewRecord()){
             try{
-                PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
-                        "INSERT INTO USERS (USERNAME, PASSWORD, ROLE_ID) VALUES (?, ?, ?)"
-                );
-                preparedStatement.setString(1, this.getUsername());
-                preparedStatement.setString(2, this.getPassword());
-                preparedStatement.setInt(3, this.getRoleID());
+                Properties properties = new Properties();
+                properties.setProperty("USERNAME", this.getUsername());
+                properties.setProperty("PASSWORD", this.getPassword());
+                properties.setProperty("ROLE_ID", String.valueOf(this.getRoleID()));
 
-                if(preparedStatement.executeUpdate() > 0){
-                    return true;
-                }
+                return Db.getInstance().insert(this.getTableName(), this.getAttributeTypes(), properties);
 
             }catch (SQLException e){
                 System.err.println(e.getMessage());
             }
         }else{
             try{
-                PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
-                        "UPDATE USERS SET " +
-                                "USERNAME = ?, PASSWORD = ?, ROLE_ID = ? WHERE ID = ?"
-                );
-                preparedStatement.setString(1, this.getUsername());
-                preparedStatement.setString(2, this.getPassword());
-                preparedStatement.setInt(3, this.getRoleID());
-                preparedStatement.setInt(4, this.getId());
-
-                if(preparedStatement.executeUpdate() > 0){
-                    return true;
-                }
-
+                Properties properties = new Properties();
+                properties.setProperty("USERNAME", this.getUsername());
+                properties.setProperty("PASSWORD", this.getPassword());
+                properties.setProperty("ROLE_ID", String.valueOf(this.getRoleID()));
+                Db.getInstance().update(this.getTableName(), this.getAttributeTypes(), properties, this.getId());
             }catch (SQLException e){
                 System.err.println(e.getMessage());
             }

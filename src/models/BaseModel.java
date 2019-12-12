@@ -13,6 +13,8 @@ public abstract class BaseModel {
         this.isNewRecord = true;
     }
 
+    public abstract String getTableName();
+
     public List<String> getErrors() {
         return this.errors;
     }
