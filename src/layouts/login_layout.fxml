@@ -18,7 +18,7 @@
                 <Label text="TEST"/>
                 <Label text="TEST"/>
                 <Label text="TEST"/>
-                <Label text="BOSITKHON"/>
+                <Label text="SHUKUR"/>
                <Label fx:id="passwordLabel" layoutX="42.0" layoutY="168.0" text="Password" />
                <Button fx:id="submitButton" layoutX="157.0" layoutY="207.0" mnemonicParsing="false" text="Button" />
                <PasswordField fx:id="passwordField" layoutX="108.0" layoutY="164.0" />
