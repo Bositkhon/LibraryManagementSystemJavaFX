@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 
 public class Main extends Application {
 
+    public static App app = new App();
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 //        Parent root = FXMLLoader.load(getClass().getResource("./../layouts/admin.fxml"));
@@ -44,14 +46,6 @@ public class Main extends Application {
         }else{
             System.out.println("Failure");
         }*/
-
-        User user = new User();
-
-        user.setUsername("amir");
-        user.setPassword("komol");
-        user.setRoleID(1);
-
-        user.save();
 
     }
 
