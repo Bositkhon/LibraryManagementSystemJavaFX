@@ -2,6 +2,9 @@ package sample;
 
 import helpers.Db;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.User;
 
@@ -47,8 +50,8 @@ public class Main extends Application {
 
         User user = new User();
 
-        user.setUsername("amir");
-        user.setPassword("komol");
+        user.setUsername("Shukur");
+        user.setPassword("sapaev");
         user.setRoleID(1);
 
         user.save();
