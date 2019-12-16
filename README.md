@@ -4,4 +4,4 @@
 - Umarbekov Qobil
 - Sapaev Shukurillo
 - Karaev Farrukh
-- Shokhrukh
+- Gafurov Shokhrukh

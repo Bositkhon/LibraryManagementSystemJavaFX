@@ -1,12 +1,10 @@
 package sample;
 
-import helpers.Db;
+import entities.Role;
+import entities.User;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import models.User;
-
-import java.net.UnknownServiceException;
-import java.sql.PreparedStatement;
+import models.UserModel;
 
 
 public class Main extends Application {
@@ -47,6 +45,9 @@ public class Main extends Application {
             System.out.println("Failure");
         }*/
 
+        UserModel userModel = new UserModel();
+        User user = userModel.getById(901);
+        System.out.println(user.getRole().getTitle());
     }
 
 
