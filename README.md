@@ -1,7 +1,8 @@
 # LibraryManagementSystemJavaFX
 ## Group members:
 - Bositkhon Shoumarov
-- Umarbekov Qobil
+- Umarbekov Kobil
 - Sapaev Shukurillo
 - Karaev Farrukh
-- Shokhrukh
+- Meliev Abduxabib
+- Shokhrux
