@@ -1,12 +1,9 @@
 package sample;
 
-import helpers.Db;
+import entities.User;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import models.User;
-
-import java.net.UnknownServiceException;
-import java.sql.PreparedStatement;
+import models.UserModel;
 
 
 public class Main extends Application {
@@ -46,6 +43,17 @@ public class Main extends Application {
         }else{
             System.out.println("Failure");
         }*/
+
+        UserModel userModel = new UserModel();
+        User user = new User();
+        user.setUsername("Shukurillo");
+        user.setPassword("sapaevme");
+        user.setRoleId(1);;
+        if(userModel.insert(user)){
+            System.out.println("Success");
+        }else{
+            System.out.println("Failure");
+        }
 
     }
 

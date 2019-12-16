@@ -1,25 +1,25 @@
 package sample;
 
-import models.User;
+import models.UserModel;
 
 public class App {
 
-    private User loggedUser;
+    private UserModel loggedUserModel;
 
     App(){
-        this.loggedUser = null;
+        this.loggedUserModel = null;
     }
 
-    public void login(User user){
-        this.loggedUser = user;
+    public void login(UserModel userModel){
+        this.loggedUserModel = userModel;
     }
 
     public void logout(){
-        this.loggedUser = null;
+        this.loggedUserModel = null;
     }
 
-    public User getCurrentUser() {
-        return this.loggedUser;
+    public UserModel getCurrentUser() {
+        return this.loggedUserModel;
     }
 
 }
