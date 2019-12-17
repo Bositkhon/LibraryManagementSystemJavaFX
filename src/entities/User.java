@@ -1,5 +1,4 @@
 package entities;
-
 import helpers.Db;
 import models.*;
 
@@ -10,6 +9,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.sql.Timestamp;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -111,7 +111,6 @@ public class User extends Entity {
             this.addError("Role with such ID doesn't exists");
             valid = false;
         }
-
         return valid;
     }
 
