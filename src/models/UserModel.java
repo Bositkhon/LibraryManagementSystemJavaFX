@@ -151,5 +151,4 @@ public class UserModel implements ModelInterface<User> {
         ResultSet resultSet = preparedStatement.executeQuery();
         return extractEntity(resultSet);
     }
-
 }

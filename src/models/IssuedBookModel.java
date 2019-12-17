@@ -157,5 +157,4 @@ public class IssuedBookModel implements ModelInterface <IssuedBook> {
         }
         return issuedBooks;
     }
-
 }
