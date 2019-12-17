@@ -1,15 +1,15 @@
 package sample;
 
-import helpers.Db;
+import entities.Role;
+import entities.User;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import models.User;
-
-import java.net.UnknownServiceException;
-import java.sql.PreparedStatement;
+import models.UserModel;
 
 
 public class Main extends Application {
+
+    public static App app = new App();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -45,13 +45,18 @@ public class Main extends Application {
             System.out.println("Failure");
         }*/
 
+        UserModel userModel = new UserModel();
         User user = new User();
-
-        user.setUsername("amir");
-        user.setPassword("komol");
-        user.setRoleID(1);
-
-        user.save();
+        user.setUsername("Bositkhon");
+        user.setPassword("bosit4me");
+        user.setRoleId(1);
+        if(userModel.insert(user)){
+            System.out.println("Success");
+        }else{
+            for(String error : user.getErrors()){
+                System.out.println(error);
+            }
+        }
 
     }
 
