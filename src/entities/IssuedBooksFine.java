@@ -1,6 +1,7 @@
 package entities;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,7 +48,5 @@ public class IssuedBooksFine extends Entity{
     }
 
     @Override
-    public boolean validate() {
-        return true;
-    }
+    public boolean validate() { return true; }
 }

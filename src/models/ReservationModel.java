@@ -1,6 +1,7 @@
 package models;
 
 import entities.Reservation;
+import entities.User;
 import helpers.Db;
 
 import java.sql.PreparedStatement;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class ReservationModel implements ModelInterface <Reservation> {
 
@@ -95,6 +97,35 @@ public class ReservationModel implements ModelInterface <Reservation> {
         preparedStatement.setInt(1, id);
 
         return preparedStatement.executeUpdate() > 0;
+    }
+
+    @Override
+    public List<Reservation> getAllByCondition(Properties properties) throws SQLException {
+        List<Reservation> reservations = new ArrayList<>();
+        String pairs = "";
+        for(String key : properties.stringPropertyNames()){
+            pairs += String.format("%s %s", key, properties.getProperty(key));
+        }
+        String query = String.format("SELECT * FROM RESERVATIONS %s", pairs);
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            reservations.add(extractEntity(resultSet));
+        }
+        return reservations;
+    }
+
+    public List<Reservation> getByUserId(int id) throws SQLException{
+        List <Reservation> reservations = new ArrayList<>();
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM RESERVATIONS WHERE USER_ID = ?"
+        );
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            reservations.add(extractEntity(resultSet));
+        }
+        return reservations;
     }
 
 }

@@ -66,7 +66,7 @@ public class Reservation extends Entity {
         return userModel.getById(this.getUserId());
     }
 
-    public Book getBook() throws SQLException{
+    public Book getBook() throws SQLException {
         BookModel bookModel = new BookModel();
         return bookModel.getById(this.getBookId());
     }
@@ -74,11 +74,11 @@ public class Reservation extends Entity {
     @Override
     public boolean validate() throws SQLException {
         boolean valid = true;
-        if(this.getUser() == null){
+        if (this.getUser() == null) {
             this.addError("User with such ID doesn't exists");
             valid = false;
         }
-        if(this.getBookId() == null){
+        if (this.getBookId() == null) {
             this.addError("Book with such ID doesn't exists");
             valid = false;
         }

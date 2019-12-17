@@ -1,6 +1,7 @@
 package models;
 
 import entities.Role;
+import entities.User;
 import helpers.Db;
 
 import java.sql.PreparedStatement;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class RoleModel implements ModelInterface<Role> {
 
@@ -90,4 +92,19 @@ public class RoleModel implements ModelInterface<Role> {
         return preparedStatement.executeUpdate() > 0;
     }
 
+    @Override
+    public List<Role> getAllByCondition(Properties properties) throws SQLException {
+        List<Role> roles = new ArrayList<>();
+        String pairs = "";
+        for(String key : properties.stringPropertyNames()){
+            pairs += String.format("%s %s", key, properties.getProperty(key));
+        }
+        String query = String.format("SELECT * FROM ROLES %s", pairs);
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            roles.add(extractEntity(resultSet));
+        }
+        return roles;
+    }
 }

@@ -87,6 +87,27 @@ public class Book extends Entity {
 
     @Override
     public boolean validate() {
-        return true;
+        boolean valid = true;
+        if (this.getQuantity() < 0) {
+            this.addError("Quantity should be a positive number");
+            valid = false;
+        }
+        if (this.getAuthor().isEmpty()) {
+            this.addError("Author can not be empty");
+            valid = false;
+        }
+        if (this.getIsbn().isEmpty()) {
+            this.addError("ISBN can not be empty");
+            valid = false;
+        }
+        if (this.getSubject().isEmpty()) {
+            this.addError("Subject can not be empty");
+            valid = false;
+        }
+        if (this.getTitle().isEmpty()) {
+            this.addError("Title can not be empty");
+            valid = false;
+        }
+        return valid;
     }
 }

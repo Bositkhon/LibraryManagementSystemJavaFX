@@ -1,6 +1,7 @@
 package models;
 
 import entities.IssuedBook;
+import entities.User;
 import helpers.Db;
 
 import java.sql.PreparedStatement;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class IssuedBookModel implements ModelInterface <IssuedBook> {
 
@@ -99,6 +101,61 @@ public class IssuedBookModel implements ModelInterface <IssuedBook> {
         );
         preparedStatement.setInt(1, id);
         return preparedStatement.executeUpdate() > 0;
+    }
+
+    @Override
+    public List<IssuedBook> getAllByCondition(Properties properties) throws SQLException {
+        List<IssuedBook> issuedBooks = new ArrayList<>();
+        String pairs = "";
+        for(String key : properties.stringPropertyNames()){
+            pairs += String.format("%s %s", key, properties.getProperty(key));
+        }
+        String query = String.format("SELECT * FROM ISSUED_BOOKS %s", pairs);
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            issuedBooks.add(extractEntity(resultSet));
+        }
+        return issuedBooks;
+    }
+
+    public List<IssuedBook> getByUserId(int id) throws SQLException{
+        List<IssuedBook> issuedBooks = new ArrayList<>();
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM ISSUED_BOOKS WHERE USER_ID = ?"
+        );
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            issuedBooks.add(extractEntity(resultSet));
+        }
+        return issuedBooks;
+    }
+
+    public List<IssuedBook> getByBookId(int id) throws SQLException{
+        List<IssuedBook> issuedBooks = new ArrayList<>();
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM ISSUED_BOOKS WHERE BOOK_ID = ?"
+        );
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            issuedBooks.add(extractEntity(resultSet));
+        }
+        return issuedBooks;
+    }
+
+    public List<IssuedBook> getByPeriodId(int id) throws SQLException{
+        List<IssuedBook> issuedBooks = new ArrayList<>();
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM ISSUED_BOOKS WHERE PERIOD_ID = ?"
+        );
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            issuedBooks.add(extractEntity(resultSet));
+        }
+        return issuedBooks;
     }
 
 }

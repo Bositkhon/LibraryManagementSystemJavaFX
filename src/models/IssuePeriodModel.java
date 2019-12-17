@@ -1,6 +1,7 @@
 package models;
 
 import entities.IssuePeriod;
+import entities.User;
 import helpers.Db;
 
 import java.sql.PreparedStatement;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class IssuePeriodModel implements ModelInterface <IssuePeriod> {
 
@@ -89,4 +91,19 @@ public class IssuePeriodModel implements ModelInterface <IssuePeriod> {
         return preparedStatement.executeUpdate() > 0;
     }
 
+    @Override
+    public List<IssuePeriod> getAllByCondition(Properties properties) throws SQLException {
+        List<IssuePeriod> issuePeriods = new ArrayList<>();
+        String pairs = "";
+        for(String key : properties.stringPropertyNames()){
+            pairs += String.format("%s %s", key, properties.getProperty(key));
+        }
+        String query = String.format("SELECT * FROM ISSUE_PERIODS %s", pairs);
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            issuePeriods.add(extractEntity(resultSet));
+        }
+        return issuePeriods;
+    }
 }

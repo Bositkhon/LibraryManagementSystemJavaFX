@@ -46,8 +46,19 @@ public class Main extends Application {
         }*/
 
         UserModel userModel = new UserModel();
-        User user = userModel.getById(901);
-        System.out.println(user.getRole().getTitle());
+        User user = new User();
+        user.setUsername("Bositkhon");
+        user.setPassword("bosit4me");
+        user.setRoleId(1);
+        if(userModel.insert(user)){
+            System.out.println("Success");
+        }else{
+            for(String error : user.getErrors()){
+                System.out.println(error);
+            }
+        }
+
+//        System.out.println(user.getRole().getTitle());
     }
 
 

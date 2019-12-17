@@ -1,10 +1,13 @@
 package entities;
 
+import models.UserModel;
+
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Role extends Entity{
+public class Role extends Entity {
 
     private Integer id;
 
@@ -37,16 +40,16 @@ public class Role extends Entity{
     }
 
     @Override
-    public boolean validate() {
+    public boolean validate() throws SQLException {
         boolean valid = true;
 
         Pattern pattern = Pattern.compile("\\w+$");
         Matcher matcher = pattern.matcher(this.getTitle());
 
-        if(this.getTitle().isEmpty()){
+        if (this.getTitle().isEmpty()) {
             this.addError("Title can not be empty");
             valid = false;
-        }else if(!matcher.find()){
+        } else if (!matcher.find()) {
             this.addError("Title should consist of letters and digits only");
             valid = false;
         }

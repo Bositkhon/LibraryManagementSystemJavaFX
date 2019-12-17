@@ -1,16 +1,18 @@
 package entities;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Entity {
 
-    private boolean hasBeenValidated;
+    protected boolean hasBeenValidated;
 
-    private List<String> errors;
+    protected List<String> errors;
 
     public Entity(){
         this.hasBeenValidated = false;
+        this.errors = new ArrayList<>();
     }
 
     public boolean hasErrors(){

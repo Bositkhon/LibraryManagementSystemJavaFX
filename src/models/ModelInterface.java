@@ -14,6 +14,8 @@ public interface ModelInterface<T> {
 
     ResultSet getAllAsQueryResult() throws SQLException;
 
+    List<T> getAllByCondition(Properties properties) throws SQLException;
+
     T extractEntity(ResultSet resultSet) throws SQLException;
 
     boolean insert(T model) throws SQLException;

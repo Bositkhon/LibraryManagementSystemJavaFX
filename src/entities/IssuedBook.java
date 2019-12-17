@@ -1,7 +1,14 @@
 package entities;
 
+import models.BookModel;
+import models.IssuePeriodModel;
+import models.IssuedBooksFineModel;
+
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IssuedBook extends Entity{
 
@@ -135,6 +142,21 @@ public class IssuedBook extends Entity{
 
     public void setIssuedAt(Timestamp issued_at) {
         this.issued_at = issued_at;
+    }
+
+    public Book getBook() throws SQLException {
+        BookModel bookModel = new BookModel();
+        return bookModel.getById(this.getBookId());
+    }
+
+    public List <IssuedBooksFine> getFines() throws SQLException{
+        IssuedBooksFineModel issuedBooksFineModel = new IssuedBooksFineModel();
+        return issuedBooksFineModel.getByIssuedBookId(this.getId());
+    }
+
+    public IssuePeriod getIssuePeriod() throws SQLException{
+        IssuePeriodModel issuePeriodModel = new IssuePeriodModel();
+        return issuePeriodModel.getById(this.getPeriodId());
     }
 
     @Override

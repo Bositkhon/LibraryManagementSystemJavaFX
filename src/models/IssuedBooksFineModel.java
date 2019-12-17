@@ -1,6 +1,7 @@
 package models;
 
 import entities.IssuedBooksFine;
+import entities.User;
 import helpers.Db;
 
 import java.sql.PreparedStatement;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -92,4 +94,34 @@ public class IssuedBooksFineModel implements ModelInterface <IssuedBooksFine> {
 
         return preparedStatement.executeUpdate() > 0;
     }
+
+    @Override
+    public List<IssuedBooksFine> getAllByCondition(Properties properties) throws SQLException {
+        List<IssuedBooksFine> issuedBooksFines = new ArrayList<>();
+        String pairs = "";
+        for(String key : properties.stringPropertyNames()){
+            pairs += String.format("%s %s", key, properties.getProperty(key));
+        }
+        String query = String.format("SELECT * FROM ISSUED_BOOKS_FINES %s", pairs);
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            issuedBooksFines.add(extractEntity(resultSet));
+        }
+        return issuedBooksFines;
+    }
+
+    public List<IssuedBooksFine> getByIssuedBookId(int id) throws SQLException{
+        List <IssuedBooksFine> issuedBooksFines = new ArrayList<>();
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM ISSUED_BOOKS_FINES WHERE ISSUED_BOOK_ID = ?"
+        );
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.next()){
+            issuedBooksFines.add(extractEntity(resultSet));
+        }
+        return issuedBooksFines;
+    }
+
 }

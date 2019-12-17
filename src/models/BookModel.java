@@ -1,6 +1,7 @@
 package models;
 
 import entities.Book;
+import entities.User;
 import helpers.Db;
 
 import java.sql.PreparedStatement;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class BookModel implements ModelInterface <Book> {
 
@@ -99,5 +101,21 @@ public class BookModel implements ModelInterface <Book> {
         );
         preparedStatement.setInt(1, id);;
         return preparedStatement.executeUpdate() > 0;
+    }
+
+    @Override
+    public List<Book> getAllByCondition(Properties properties) throws SQLException {
+        List<Book> books = new ArrayList<>();
+        String pairs = "";
+        for(String key : properties.stringPropertyNames()){
+            pairs += String.format("%s %s", key, properties.getProperty(key));
+        }
+        String query = String.format("SELECT * FROM BOOKS %s", pairs);
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            books.add(extractEntity(resultSet));
+        }
+        return books;
     }
 }

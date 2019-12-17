@@ -1,5 +1,6 @@
 package models;
 
+import entities.Reservation;
 import entities.User;
 import helpers.Db;
 import helpers.Md5Converter;
@@ -112,4 +113,43 @@ public class UserModel implements ModelInterface<User> {
         preparedStatement.setInt(1, id);
         return preparedStatement.executeUpdate() > 0;
     }
+
+    @Override
+    public List<User> getAllByCondition(Properties properties) throws SQLException{
+        List<User> users = new ArrayList<>();
+        String pairs = "";
+        for(String key : properties.stringPropertyNames()){
+            pairs += String.format("%s %s", key, properties.getProperty(key));
+        }
+        String query = String.format("SELECT * FROM USERS %s", pairs);
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            users.add(extractEntity(resultSet));
+        }
+        return users;
+    }
+
+    public List<User> getByRoleId(int id) throws SQLException{
+        List<User> users = new ArrayList<>();
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM USERS WHERE ROLE_ID = ?"
+        );
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            users.add(extractEntity(resultSet));
+        }
+        return users;
+    }
+
+    public User getByUsernameAndPassword(String username) throws SQLException{
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM USERS WHERE USERNAME = ?"
+        );
+        preparedStatement.setString(1, username);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return extractEntity(resultSet);
+    }
+
 }
