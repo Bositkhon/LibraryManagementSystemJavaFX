@@ -1,4 +1,5 @@
 package entities;
+
 import models.*;
 
 import java.sql.SQLException;
