@@ -1,9 +1,18 @@
 package entities;
+<<<<<<< HEAD
+=======
+import helpers.Db;
+>>>>>>> d90a01f8c4cb8e1f871509ece2d29c95192b8c8c
 import models.*;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Properties;
+import java.sql.Timestamp;
+>>>>>>> d90a01f8c4cb8e1f871509ece2d29c95192b8c8c
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
