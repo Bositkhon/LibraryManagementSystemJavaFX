@@ -57,6 +57,11 @@ public class UserModel implements ModelInterface<User> {
     @Override
     public boolean insert(User model) throws SQLException{
         if(model.validate()){
+            User user = this.getByUsername(model.getUsername());
+            if(user != null){
+                user.addError("User with this username and password already exists");
+                return false;
+            }
             PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
                     "INSERT INTO USERS (USERNAME, PASSWORD, ROLE_ID) VALUES  (?, ?, ?)"
             );
@@ -71,32 +76,13 @@ public class UserModel implements ModelInterface<User> {
     @Override
     public boolean update(User model) throws SQLException{
         if(model.validate()) {
+            User oldModel = this.getById(model.getId());
             PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
                     "UPDATE USERS SET USERNAME = ?, PASSWORD = ?, ROLE_ID = ? WHERE ID = ?"
             );
 
             preparedStatement.setString(1, model.getUsername());
-            preparedStatement.setString(2, model.getPassword());
-            preparedStatement.setInt(3, model.getRoleId());
-            preparedStatement.setInt(4, model.getId());
-
-            return preparedStatement.executeUpdate() > 0;
-        }
-        return false;
-    }
-
-    public boolean update(User old_model, User model) throws SQLException{
-        if(model.validate()) {
-            PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
-                    "UPDATE USERS SET USERNAME = ?, PASSWORD = ?, ROLE_ID = ? WHERE ID = ?"
-            );
-
-            preparedStatement.setString(1, model.getUsername());
-            if(old_model.getPassword().equals(model.getPassword())){
-                preparedStatement.setString(2, model.getPassword());
-            }else{
-                preparedStatement.setString(2, Md5Converter.hash(model.getPassword()));
-            }
+            preparedStatement.setString(2, Md5Converter.hash(model.getPassword()));
             preparedStatement.setInt(3, model.getRoleId());
             preparedStatement.setInt(4, model.getId());
 
@@ -143,7 +129,7 @@ public class UserModel implements ModelInterface<User> {
         return users;
     }
 
-    public User getByUsernameAndPassword(String username) throws SQLException{
+    public User getByUsername(String username) throws SQLException{
         PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
                 "SELECT * FROM USERS WHERE USERNAME = ?"
         );
