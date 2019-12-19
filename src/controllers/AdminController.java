@@ -1,5 +1,6 @@
 package controllers;
 
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,7 +33,7 @@ public class AdminController implements LogoutInterface, Initializable {
     private AnchorPane homePanel, administratorsPanel, studentsPanel, librariansPanel, booksPanel, profilePanel;
 
     @FXML
-    private Label totalBooksLabel, totalUsersLabel;
+    private Label totalBooksLabel, totalUsersLabel, userName, userRole;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -41,6 +42,10 @@ public class AdminController implements LogoutInterface, Initializable {
             UserModel userModel = new UserModel();
             totalUsersLabel.setText(String.valueOf(userModel.getAll().size()));
             totalBooksLabel.setText(String.valueOf(bookModel.getAll().size()));
+//            userName.setText(String.valueOf(user.getUsername()));
+//            userRole.setText(String.valueOf(user.getRole()));
+            userName.setText(Main.app.getLoggedUser().getUsername());
+            userRole.setText(Main.app.getLoggedUser().getRole().getTitle());
         }catch (SQLException e){
             e.printStackTrace();
         }

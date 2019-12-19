@@ -14,6 +14,8 @@ public class App {
         this.loggedUser = userModel;
     }
 
+    public User getLoggedUser(){return this.loggedUser;}
+
     public void logout(){
         this.loggedUser = null;
     }

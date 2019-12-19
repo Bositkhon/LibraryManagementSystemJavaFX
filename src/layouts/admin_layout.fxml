@@ -29,7 +29,7 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <VBox prefHeight="533.6" prefWidth="150.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox prefHeight="496.0" prefWidth="138.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label text="LMS" textAlignment="CENTER">
                            <font>
@@ -126,15 +126,20 @@
                                   <RowConstraints maxHeight="404.0000030517578" minHeight="10.0" prefHeight="374.40001220703124" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <AnchorPane prefHeight="53.0" prefWidth="555.0">
+                                    <AnchorPane prefHeight="40.0" prefWidth="555.0">
                                        <children>
-                                          <HBox layoutX="-23.0" layoutY="7.0" prefHeight="60.0" prefWidth="555.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <HBox layoutX="-23.0" layoutY="7.0" prefHeight="95.0" prefWidth="555.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
                                                 <Pane prefHeight="113.0" prefWidth="556.0">
                                                    <children>
-                                                      <Label layoutX="14.0" layoutY="14.0" prefHeight="0.0" prefWidth="170.0" text="Sapaev Shukur">
+                                                      <Label fx:id="userName" layoutX="14.0" layoutY="28.0" prefHeight="31.0" prefWidth="188.0" text="Sapaev Shukur">
                                                          <font>
-                                                            <Font size="24.0" />
+                                                            <Font size="26.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="userRole" layoutX="14.0" layoutY="57.0" text="Administrator" textFill="#a1a1a1">
+                                                         <font>
+                                                            <Font size="16.0" />
                                                          </font>
                                                       </Label>
                                                    </children>
@@ -151,8 +156,16 @@
                                                    <children>
                                                       <Pane prefHeight="73.0" prefWidth="277.0" style="-fx-background-color: #ef626c;">
                                                          <children>
-                                                            <Label alignment="CENTER" layoutY="1.0" prefHeight="73.0" prefWidth="138.0" text="Total books" />
-                                                            <Label fx:id="totalBooksLabel" alignment="CENTER" layoutX="139.0" layoutY="1.0" prefHeight="73.0" prefWidth="138.0" />
+                                                            <Label alignment="CENTER" layoutY="1.0" prefHeight="73.0" prefWidth="138.0" text="Total books" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label fx:id="totalBooksLabel" alignment="CENTER" layoutX="139.0" layoutY="1.0" prefHeight="73.0" prefWidth="138.0" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Label>
                                                          </children>
                                                       </Pane>
                                                    </children>
@@ -161,8 +174,16 @@
                                                    <children>
                                                       <Pane prefHeight="73.0" prefWidth="277.0" style="-fx-background-color: #84dccf#84dccf;">
                                                          <children>
-                                                            <Label alignment="CENTER" prefHeight="73.0" prefWidth="138.0" text="Total users" />
-                                                            <Label fx:id="totalUsersLabel" alignment="CENTER" layoutX="139.0" prefHeight="73.0" prefWidth="138.0" />
+                                                            <Label alignment="CENTER" prefHeight="73.0" prefWidth="138.0" text="Total users" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label fx:id="totalUsersLabel" alignment="CENTER" layoutX="139.0" prefHeight="73.0" prefWidth="138.0" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Label>
                                                          </children>
                                                       </Pane>
                                                    </children>
