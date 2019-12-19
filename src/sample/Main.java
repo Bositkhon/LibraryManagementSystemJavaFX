@@ -1,58 +1,45 @@
 package sample;
 
-import helpers.Db;
+import entities.Role;
+import entities.User;
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import models.User;
+import models.UserModel;
 
-import java.net.UnknownServiceException;
-import java.sql.PreparedStatement;
+import java.awt.event.ActionEvent;
 
 
 public class Main extends Application {
 
+    public static App app = new App();
+
+    private Stage window;
+    private Scene scene1, scene2;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-//        Parent root = FXMLLoader.load(getClass().getResource("./../layouts/admin.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("./../layouts/admin_layout.fxml"));
 //        primaryStage.setTitle("Library Management System");
 //        primaryStage.setScene(new Scene(root));
 //        primaryStage.show();
-
-        /*primaryStage = FXMLLoader.load(getClass().getResource("./../layouts/create_user_layout.fxml"));
+        window = primaryStage;
+        AnchorPane parent = FXMLLoader.load(getClass().getResource("./../layouts/login_layout.fxml"));
+        primaryStage.setScene(new Scene(parent));
+        primaryStage.show();
+        /*TextField usernameTextField = (TextField) parent.lookup("#usernameTextField");
+        Button button = (Button) parent.lookup("#submitButton");
+        button.setOnAction(event -> System.out.println(usernameTextField.getText()));*/
+        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("./../layouts/admin_layout.fxml"));
+        primaryStage = FXMLLoader.load(getClass().getResource("./../layouts/login_layout.fxml"));
         primaryStage.setTitle("Login");
         primaryStage.show();*/
-//        User user = new User();
-//        System.out.println(user.isNewRecord());
-//        user.setUsername("Bositkhon");
-//        user.setPassword("bosit4me");
-//        user.setRoleID(1);
-//        if(user.save()){
-//            System.out.println("User has been added");
-//        }else{
-//            System.out.println("Something wrong");
-//        }
-
-        /*PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
-                "INSERT INTO USERS (PASSWORD, USERNAME, ROLE_ID) VALUES (?, ?, ?)"
-        );
-        preparedStatement.setString(1, "123");
-        preparedStatement.setString(2, "shukur");
-        preparedStatement.setInt(3, 1);
-
-        if(preparedStatement.executeUpdate() > 0){
-            System.out.println("Success");
-        }else{
-            System.out.println("Failure");
-        }*/
-
-        User user = new User();
-
-        user.setUsername("amir");
-        user.setPassword("komol");
-        user.setRoleID(1);
-
-        user.save();
-
     }
 
 

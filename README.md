@@ -5,4 +5,4 @@
 - Sapaev Shukurillo
 - Karaev Farrukh
 - Meliev Abduxabib
-- Shokhrux
+- Gafurov Shokhrukh
