@@ -3,6 +3,6 @@
 - Bositkhon Shoumarov
 - Umarbekov Kobil
 - Sapaev Shukurillo
-- Karaev Farrukh
+- Koraev Farrukh
 - Meliev Abduxabib
 - Gafurov Shokhrukh
