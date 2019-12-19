@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class API {
-    public static BookByISBN getFromAPI(String url) throws IOException {
-//        String url = "https://isbnsearch.org/isbn/"+isbn;
+    public static ArrayList<String> getFromAPI(String isbn) throws IOException {
+        String url = "https://isbnsearch.org/isbn/"+isbn;
         Document doc = null;
         try {
             doc = Jsoup.connect(url)
@@ -30,17 +30,24 @@ public class API {
         Elements img = content.getElementsByTag("img");
         Elements ps = content.select("p");
         ArrayList<String> datas = new ArrayList<String>();
+
+//        System.out.println(content.select("h1").text());
+//        System.out.println(content.getElementsByTag("img").attr("src"));
+        datas.add(content.getElementsByTag("img").attr("src"));
+        datas.add(content.select("h1").text());
+
         for (Element p : ps){
             String tmp = p.text();
-            int k = tmp.indexOf(":");
-            tmp = tmp.substring(k+1);
-            tmp = tmp.trim();
+//            System.out.println(tmp);
+//            int k = tmp.indexOf(":");
+//            tmp = tmp.substring(k+1);
+//            tmp = tmp.trim();
             datas.add(tmp);
         }
 
-        BookByISBN book = new BookByISBN();
-        book.setTitle(content.select("h1").text());
-        book.setImgLink(content.getElementsByTag("img").attr("src"));
+//        BookByISBN book = new BookByISBN();
+//        book.setTitle(content.select("h1").text());
+//        book.setImgLink(content.getElementsByTag("img").attr("src"));
 //        book.setISBN_13(datas.get(0));
 //        book.setISBN_10(datas.get(1));
 //        book.setAuthor(datas.get(2));
@@ -50,6 +57,8 @@ public class API {
 //        book.setPublished(datas.get(6));
 //        book.setPrice(datas.get(7));
 
-        return book;
+//        return book;
+//        return "Done :)\n";
+        return datas;
     }
 }

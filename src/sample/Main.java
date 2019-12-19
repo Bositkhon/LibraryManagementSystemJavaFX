@@ -94,10 +94,15 @@ public class Main extends Application {
 //        BookByISBN b = new BookByISBN();
 //        b = API.getFromAPI(url);
 
-        System.out.println(API.getFromAPI("https://isbnsearch.org/isbn/9781133710882"));
-        System.out.println(API.getFromAPI("https://isbnsearch.org/isbn/9780840068071"));
-        System.out.println(API.getFromAPI("https://isbnsearch.org/isbn/9781305272378"));
-        System.out.println(API.getFromAPI(url));
+//        System.out.println(API.getFromAPI("https://isbnsearch.org/isbn/9781133710882"));
+//        System.out.println(API.getFromAPI("https://isbnsearch.org/isbn/9780840068071"));
+//        System.out.println(API.getFromAPI("https://isbnsearch.org/isbn/9781305272378"));
+//        System.out.println(API.getFromAPI(url));
+        System.out.println(API.getFromAPI("9781133710882"));
+        System.out.println(API.getFromAPI("9780840068071"));
+        System.out.println(API.getFromAPI("53243242"));
+        System.out.println(API.getFromAPI("9781305272378"));
+
 //        Connection.Response response;
 //        try {
 //            response = Jsoup.connect("https://isbnsearch.org/isbn/9781133710882").followRedirects(false).execute();
