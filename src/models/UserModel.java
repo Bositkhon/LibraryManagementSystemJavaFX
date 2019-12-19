@@ -137,4 +137,14 @@ public class UserModel implements ModelInterface<User> {
         ResultSet resultSet = preparedStatement.executeQuery();
         return extractEntity(resultSet);
     }
+
+    public User getByUsernameAndPassword(String username, String password) throws SQLException{
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?"
+        );
+        preparedStatement.setString(1, username);
+        preparedStatement.setString(2, Md5Converter.hash(password));
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return extractEntity(resultSet);
+    }
 }

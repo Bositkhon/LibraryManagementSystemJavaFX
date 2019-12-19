@@ -1,25 +1,25 @@
 package sample;
 
-import models.UserModel;
+import entities.User;
 
 public class App {
 
-    private UserModel loggedUserModel;
+    private User loggedUser;
 
     App(){
-        this.loggedUserModel = null;
+        this.loggedUser = null;
     }
 
-    public void login(UserModel userModel){
-        this.loggedUserModel = userModel;
+    public void login(User userModel){
+        this.loggedUser = userModel;
     }
 
     public void logout(){
-        this.loggedUserModel = null;
+        this.loggedUser = null;
     }
 
-    public UserModel getCurrentUser() {
-        return this.loggedUserModel;
+    public boolean isLoggedIn(){
+        return this.loggedUser != null;
     }
 
 }

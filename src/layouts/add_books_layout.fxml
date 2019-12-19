@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="320.0" prefWidth="262.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CreateBookController">
+   <children>
+      <TextField layoutX="57.0" layoutY="46.0" />
+      <TextField layoutX="57.0" layoutY="169.0" />
+      <TextField layoutX="57.0" layoutY="127.0" />
+      <TextField layoutX="57.0" layoutY="84.0" />
+      <Button layoutX="106.0" layoutY="219.0" mnemonicParsing="false" text="Button" />
+   </children>
+</AnchorPane>

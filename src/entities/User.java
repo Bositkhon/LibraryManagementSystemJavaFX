@@ -95,10 +95,6 @@ public class User extends Entity {
             valid = false;
         }
 
-        if(this.getRole() == null){
-            this.addError("Role with such ID doesn't exists");
-            valid = false;
-        }
         return valid;
     }
 
