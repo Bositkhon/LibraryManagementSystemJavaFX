@@ -1,5 +1,6 @@
 package entities;
 
+import helpers.Db;
 import models.*;
 
 import java.sql.SQLException;

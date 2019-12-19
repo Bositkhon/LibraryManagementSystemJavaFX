@@ -40,24 +40,6 @@ public class Main extends Application {
         primaryStage = FXMLLoader.load(getClass().getResource("./../layouts/login_layout.fxml"));
         primaryStage.setTitle("Login");
         primaryStage.show();*/
-
-        /*UserModel userModel = new UserModel();
-        User user = userModel.getByUsername("Bositkhon");
-        System.out.println("Old password = " + user.getPassword());
-        user.setPassword("something");
-        System.out.println(user.getPassword());
-        System.out.println(user.getId());
-        System.out.println(user.getUsername());
-        System.out.println(user.getRoleId());
-
-        if(userModel.update(user)){
-            User new_user = userModel.getByUsername("Bositkhon");
-            System.out.println("New - " + new_user.getPassword());
-        }else{
-            for(String error : user.getErrors()){
-                System.out.println(error);
-            }
-        }*/
     }
 
 
