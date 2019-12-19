@@ -1,12 +1,30 @@
 package sample;
 
+import helpers.API;
 import helpers.Db;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import models.BookByISBN;
 import models.User;
+import org.apache.derby.optional.json.SimpleJsonTool;
+import org.jsoup.Connection;
+import org.jsoup.HttpStatusException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import javax.swing.text.html.parser.Parser;
+import java.awt.print.Book;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URL;
 import java.net.UnknownServiceException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 
 
 public class Main extends Application {
@@ -45,13 +63,48 @@ public class Main extends Application {
             System.out.println("Failure");
         }*/
 
-        User user = new User();
+//        String url = "https://jsonplaceholder.typicode.com/posts/1";
+//        String url = "https://isbnsearch.org/isbn/0684843285";
+        String url = "https://isbnsearch.org/isbn/9781305272378";
+//        InputStreamReader reader = new InputStreamReader(new URL(url).openStream());
+//        int t;
+//        String read_reslt="";
+//
+//        // Use of read() method
+//        while((t = reader.read()) != -1)
+//        {
+//            read_reslt = read_reslt+(char)t;
+//        }
 
-        user.setUsername("amir");
-        user.setPassword("komol");
-        user.setRoleID(1);
+        // print the result read from the file
+//        System.out.println(read_reslt);
 
-        user.save();
+//        HttpClient client = HttpClient.newHttpClient();
+//        HttpRequest req = HttpRequest.newBuilder()
+//                .uri(URI.create(url))
+//                .header("Content-type","text/html")
+//                .build();
+//        client.sendAsync(req, HttpResponse.BodyHandlers.ofString())
+//        .thenApply(resp->{
+//            System.out.println(resp.body());
+//            return resp;
+//        })
+//        .thenApply(HttpResponse::body);
+        System.out.println("+++++++=======================");
+//        BookByISBN b = new BookByISBN();
+//        b = API.getFromAPI(url);
+
+        System.out.println(API.getFromAPI("https://isbnsearch.org/isbn/9781133710882"));
+        System.out.println(API.getFromAPI("https://isbnsearch.org/isbn/9780840068071"));
+        System.out.println(API.getFromAPI("https://isbnsearch.org/isbn/9781305272378"));
+        System.out.println(API.getFromAPI(url));
+//        Connection.Response response;
+//        try {
+//            response = Jsoup.connect("https://isbnsearch.org/isbn/9781133710882").followRedirects(false).execute();
+//            System.out.println(response.statusCode());
+//        }catch (HttpStatusException err){
+//            System.out.println("404 Not Found");
+//        }
 
     }
 
