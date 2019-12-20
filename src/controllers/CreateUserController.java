@@ -1,12 +1,28 @@
 package controllers;
 
+import entities.Role;
+import entities.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import models.RoleModel;
+import models.UserModel;
 
-public class CreateUserController {
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class CreateUserController implements Initializable {
+
+    @FXML
+    private Label errorMessageLabel;
 
     @FXML
     private TextField usernameTextField;
@@ -15,19 +31,37 @@ public class CreateUserController {
     private PasswordField passwordField;
 
     @FXML
-    private Button registerButton;
+    private ChoiceBox<String> rolesChoiceBox;
 
     @FXML
-    private Label errorMessageTextField;
+    private Button createButton;
 
-    public void registerUser(){
-        String username = usernameTextField.getText();
-        String password = passwordField.getText();
-
-        if(username.isEmpty() || password.isEmpty()){
-            errorMessageTextField.setText("Username or password can not be empty! Please try again");
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            RoleModel roleModel = new RoleModel();
+            List<Role> roles = roleModel.getAll();
+            for(Role role : roles){
+                rolesChoiceBox.getItems().add(role.getTitle());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
     }
 
+    public void createUser(ActionEvent event) throws SQLException {
+        UserModel userModel = new UserModel();
+        User user = new User();
+        RoleModel roleModel = new RoleModel();
+        user.setUsername(usernameTextField.getText());
+        user.setPassword(passwordField.getText());
+        Role role = roleModel.getByTitle(rolesChoiceBox.getSelectionModel().getSelectedItem());
+        user.setRoleId(role.getId());
+        if(userModel.insert(user)){
+            Stage currentStage = (Stage) ((Parent)event.getSource()).getScene().getWindow();
+            currentStage.close();
+        }else{
+            errorMessageLabel.setText(user.getErrors().toString());
+        }
+    }
 }
