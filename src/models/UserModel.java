@@ -40,6 +40,19 @@ public class UserModel implements ModelInterface<User> {
         return users;
     }
 
+    public List<User> getStudents() throws SQLException{
+        List<User> users = new ArrayList<>();
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM USERS WHERE ROLE_ID = ?"
+        );
+        preparedStatement.setInt(1, 201);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            users.add(extractEntity(resultSet));
+        }
+        return users;
+    }
+
     @Override
     public User extractEntity(ResultSet resultSet) throws SQLException{
         if(resultSet.next()){
