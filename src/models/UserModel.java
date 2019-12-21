@@ -34,8 +34,10 @@ public class UserModel implements ModelInterface<User> {
         List<User> users = new ArrayList<>();
         Statement statement = Db.getInstance().getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM USERS");
-        while(resultSet.next()){
-            users.add(extractEntity(resultSet));
+        User user = extractEntity(resultSet);
+        while(user != null){
+            users.add(user);
+            user = extractEntity(resultSet);
         }
         return users;
     }
@@ -160,4 +162,17 @@ public class UserModel implements ModelInterface<User> {
         ResultSet resultSet = preparedStatement.executeQuery();
         return extractEntity(resultSet);
     }
+
+    public User search(String username) throws SQLException {
+        username = "%" + username;
+        username = username + "%";
+        System.out.println("Username - " + username);
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM USERS WHERE USERNAME LIKE ?"
+        );
+        preparedStatement.setString(1, username);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return extractEntity(resultSet);
+    }
+
 }

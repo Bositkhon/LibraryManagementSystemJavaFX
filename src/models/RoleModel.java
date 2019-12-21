@@ -36,9 +36,11 @@ public class RoleModel implements ModelInterface<Role> {
     public List<Role> getAll() throws SQLException {
         List <Role> roles = new ArrayList<>();
         Statement statement = Db.getInstance().getConnection().createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM USERS");
-        while (resultSet.next()){
-            roles.add(extractEntity(resultSet));
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM ROLES");
+        Role role = extractEntity(resultSet);
+        while(role != null){
+            roles.add(role);
+            role = extractEntity(resultSet);
         }
         return roles;
     }
@@ -47,7 +49,7 @@ public class RoleModel implements ModelInterface<Role> {
     public Role extractEntity(ResultSet resultSet) throws SQLException {
         if(resultSet.next()){
             Role role = new Role();
-            role.setId(resultSet.getInt("id"));
+            role.setId(resultSet.getInt("ID"));
             role.setTitle(resultSet.getString("TITLE"));
             role.setCreatedAt(resultSet.getTimestamp("CREATED_AT"));
             return role;
@@ -107,4 +109,14 @@ public class RoleModel implements ModelInterface<Role> {
         }
         return roles;
     }
+
+    public Role getByTitle(String title) throws SQLException {
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM ROLES WHERE TITLE = ?"
+        );
+        preparedStatement.setString(1, title);;
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return extractEntity(resultSet);
+    }
+
 }
