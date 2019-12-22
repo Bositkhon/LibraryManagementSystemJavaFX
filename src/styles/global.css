@@ -7,6 +7,10 @@
 .tool-bar, .dark-bg  {
     -fx-background-color: #1d2233;
 }
+.tool-bar .label {
+    -fx-text-fill: #fff;
+    
+}
 
 .btn, .button {
     -fx-background-color: transparent;
