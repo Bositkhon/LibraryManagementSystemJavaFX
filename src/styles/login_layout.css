@@ -1,3 +1,9 @@
 .login_layout {
     
 }
+.login_layout .button.btn--dark {
+    -fx-min-width: 100px;
+}
+.login_layout .login_layout-labels {
+    -fx-opacity: 0.8;
+}
