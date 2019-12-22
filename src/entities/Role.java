@@ -56,4 +56,9 @@ public class Role extends Entity {
 
         return valid;
     }
+
+    @Override
+    public String toString() {
+        return this.getTitle();
+    }
 }

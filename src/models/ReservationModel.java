@@ -30,9 +30,11 @@ public class ReservationModel implements ModelInterface <Reservation> {
     public List<Reservation> getAll() throws SQLException {
         List <Reservation> reservations = new ArrayList<>();
         Statement statement = Db.getInstance().getConnection().createStatement();
-        ResultSet set = statement.executeQuery("SELECT * FROM RESERVATIONS");
-        while (set.next()){
-            reservations.add(extractEntity(set));
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM RESERVATIONS");
+        Reservation reservation = extractEntity(resultSet);
+        while (reservation != null){
+            reservations.add(reservation);
+            reservation = extractEntity(resultSet);
         }
         return reservations;
     }
@@ -115,15 +117,17 @@ public class ReservationModel implements ModelInterface <Reservation> {
         return reservations;
     }
 
-    public List<Reservation> getByUserId(int id) throws SQLException{
+    public List<Reservation> getAllByUserId(int id) throws SQLException{
         List <Reservation> reservations = new ArrayList<>();
         PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
                 "SELECT * FROM RESERVATIONS WHERE USER_ID = ?"
         );
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()){
-            reservations.add(extractEntity(resultSet));
+        Reservation reservation = extractEntity(resultSet);
+        while (reservation != null){
+            reservations.add(reservation);
+            reservation = extractEntity(resultSet);
         }
         return reservations;
     }

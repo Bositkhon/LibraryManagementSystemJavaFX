@@ -1,9 +1,11 @@
 package models;
 
 import entities.Reservation;
+import entities.Role;
 import entities.User;
 import helpers.Db;
 import helpers.Md5Converter;
+import javafx.collections.FXCollections;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,8 +36,10 @@ public class UserModel implements ModelInterface<User> {
         List<User> users = new ArrayList<>();
         Statement statement = Db.getInstance().getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM USERS");
-        while(resultSet.next()){
-            users.add(extractEntity(resultSet));
+        User user = extractEntity(resultSet);
+        while(user != null){
+            users.add(user);
+            user = extractEntity(resultSet);
         }
         return users;
     }
@@ -57,6 +61,11 @@ public class UserModel implements ModelInterface<User> {
     @Override
     public boolean insert(User model) throws SQLException{
         if(model.validate()){
+            User user = this.getByUsername(model.getUsername());
+            if(user != null){
+                user.addError("User with this username and password already exists");
+                return false;
+            }
             PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
                     "INSERT INTO USERS (USERNAME, PASSWORD, ROLE_ID) VALUES  (?, ?, ?)"
             );
@@ -71,32 +80,13 @@ public class UserModel implements ModelInterface<User> {
     @Override
     public boolean update(User model) throws SQLException{
         if(model.validate()) {
+            User oldModel = this.getById(model.getId());
             PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
                     "UPDATE USERS SET USERNAME = ?, PASSWORD = ?, ROLE_ID = ? WHERE ID = ?"
             );
 
             preparedStatement.setString(1, model.getUsername());
-            preparedStatement.setString(2, model.getPassword());
-            preparedStatement.setInt(3, model.getRoleId());
-            preparedStatement.setInt(4, model.getId());
-
-            return preparedStatement.executeUpdate() > 0;
-        }
-        return false;
-    }
-
-    public boolean update(User old_model, User model) throws SQLException{
-        if(model.validate()) {
-            PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
-                    "UPDATE USERS SET USERNAME = ?, PASSWORD = ?, ROLE_ID = ? WHERE ID = ?"
-            );
-
-            preparedStatement.setString(1, model.getUsername());
-            if(old_model.getPassword().equals(model.getPassword())){
-                preparedStatement.setString(2, model.getPassword());
-            }else{
-                preparedStatement.setString(2, Md5Converter.hash(model.getPassword()));
-            }
+            preparedStatement.setString(2, Md5Converter.hash(model.getPassword()));
             preparedStatement.setInt(3, model.getRoleId());
             preparedStatement.setInt(4, model.getId());
 
@@ -143,7 +133,7 @@ public class UserModel implements ModelInterface<User> {
         return users;
     }
 
-    public User getByUsernameAndPassword(String username) throws SQLException{
+    public User getByUsername(String username) throws SQLException{
         PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
                 "SELECT * FROM USERS WHERE USERNAME = ?"
         );
@@ -151,4 +141,42 @@ public class UserModel implements ModelInterface<User> {
         ResultSet resultSet = preparedStatement.executeQuery();
         return extractEntity(resultSet);
     }
+
+    public User getByUsernameAndPassword(String username, String password) throws SQLException{
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?"
+        );
+        preparedStatement.setString(1, username);
+        preparedStatement.setString(2, Md5Converter.hash(password));
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return extractEntity(resultSet);
+    }
+
+    public User search(String username) throws SQLException {
+        username = "%" + username;
+        username = username + "%";
+        System.out.println("Username - " + username);
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM USERS WHERE USERNAME LIKE ?"
+        );
+        preparedStatement.setString(1, username);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return extractEntity(resultSet);
+    }
+
+    public List<User> getByRole(Role role) throws SQLException {
+        List<User> users = new ArrayList<>();
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM USERS WHERE ROLE_ID = ?"
+        );
+        preparedStatement.setInt(1, role.getId());
+        ResultSet resultSet = preparedStatement.executeQuery();
+        User user = extractEntity(resultSet);
+        while(user != null){
+            users.add(user);
+            user = extractEntity(resultSet);
+        }
+        return users;
+    }
+
 }

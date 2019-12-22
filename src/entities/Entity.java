@@ -6,12 +6,9 @@ import java.util.List;
 
 public abstract class Entity {
 
-    protected boolean hasBeenValidated;
-
     protected List<String> errors;
 
     public Entity(){
-        this.hasBeenValidated = false;
         this.errors = new ArrayList<>();
     }
 

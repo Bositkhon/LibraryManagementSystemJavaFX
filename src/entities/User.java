@@ -1,15 +1,10 @@
 package entities;
-import helpers.Db;
+
 import models.*;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-import java.sql.Timestamp;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,12 +67,12 @@ public class User extends Entity {
 
     public List <IssuedBook> getIssuedBooks() throws SQLException{
         IssuedBookModel issuedBookModel = new IssuedBookModel();
-        return issuedBookModel.getByUserId(this.getId());
+        return issuedBookModel.getAllByUserId(this.getId());
     }
 
     public List <Reservation> getReservations() throws SQLException{
         ReservationModel reservationModel = new ReservationModel();
-        return reservationModel.getByUserId(this.getId());
+        return reservationModel.getAllByUserId(this.getId());
     }
 
     @Override
@@ -86,13 +81,6 @@ public class User extends Entity {
 
         Pattern pattern = Pattern.compile("\\w+$");
         Matcher matcher = pattern.matcher(this.getUsername());
-
-        UserModel userModel = new UserModel();
-        User user = userModel.getByUsernameAndPassword(this.getUsername());
-        if(user != null){
-            this.addError("User with this username and password already exists");
-            valid = false;
-        }
 
         if(this.getUsername().isEmpty()){
             this.addError("Username can not be empty");
@@ -107,10 +95,6 @@ public class User extends Entity {
             valid = false;
         }
 
-        if(this.getRole() == null){
-            this.addError("Role with such ID doesn't exists");
-            valid = false;
-        }
         return valid;
     }
 

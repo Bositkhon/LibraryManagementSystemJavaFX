@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane prefHeight="567.0" prefWidth="1028.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.student.FinedBooksController">
+   <children>
+      <BorderPane prefHeight="474.4" prefWidth="705.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <TableView fx:id="finesTableView" editable="true" prefHeight="526.0" prefWidth="1005.0" BorderPane.alignment="CENTER">
+               <columns>
+                  <TableColumn fx:id="serialTableColumn" prefWidth="30.40002405643463" text="#" />
+                  <TableColumn fx:id="titleTableColumn" prefWidth="119.99996376037598" text="Title" />
+                  <TableColumn fx:id="subjectTableColumn" prefWidth="88.00006103515625" text="Subject" />
+                  <TableColumn fx:id="periodTableColumn" prefWidth="75.0" text="Period" />
+                  <TableColumn prefWidth="75.0" text="Due date" />
+                  <TableColumn fx:id="authorTableColumn" prefWidth="87.20001220703125" text="Author" />
+                  <TableColumn fx:id="isbnTableColumn" prefWidth="189.60006713867188" text="ISBN" />
+                  <TableColumn fx:id="publishedDateTableColumn" prefWidth="104.79998779296875" text="Published Date" />
+                  <TableColumn fx:id="reasonTableColumn" prefWidth="99.99993896484375" text="Reason" />
+                  <TableColumn prefWidth="75.0" text="Reason" />
+               </columns>
+            </TableView>
+         </center>
+         <top>
+            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <items>
+                  <TextField fx:id="searchTextField" />
+                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#search" text="Search" />
+                  <Button fx:id="resetSearchButton" mnemonicParsing="false" text="Reset" />
+               </items>
+            </ToolBar>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>

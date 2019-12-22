@@ -4,6 +4,7 @@ import entities.Book;
 import entities.User;
 import helpers.Db;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,8 +30,10 @@ public class BookModel implements ModelInterface <Book> {
         List <Book> books = new ArrayList<>();
         Statement statement = Db.getInstance().getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM BOOKS");
-        while (resultSet.next()){
-            books.add(extractEntity(resultSet));
+        Book book = extractEntity(resultSet);
+        while (book != null){
+            books.add(book);
+            book = extractEntity(resultSet);
         }
         return books;
     }
@@ -118,4 +121,35 @@ public class BookModel implements ModelInterface <Book> {
         }
         return books;
     }
+
+    public Book getByIsbn(String isbn) throws SQLException {
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM BOOKS WHERE ISBN = ?"
+        );
+        preparedStatement.setString(1, isbn);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return extractEntity(resultSet);
+    }
+
+    public List<Book> search(String value) throws SQLException {
+        value = "%" + value;
+        value = value + "%";
+        List<Book> books = new ArrayList<>();
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM BOOKS WHERE TITLE LIKE ? OR SUBJECT LIKE ? OR AUTHOR LIKE ? OR ISBN LIKE ?"
+        );
+        preparedStatement.setString(1, value);
+        preparedStatement.setString(2, value);
+        preparedStatement.setString(3, value);
+        preparedStatement.setString(4, value);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Book book = extractEntity(resultSet);
+        while (book != null){
+            books.add(book);
+            book = extractEntity(resultSet);
+        }
+        return books;
+    }
+
 }
