@@ -20,7 +20,7 @@
                         <Tab fx:id="booksTab" text="Issue a book"/>
                         <Tab fx:id="issuedBooksTab" text="Issued books"/>
                         <Tab fx:id="finedBooksTab" text="Fined books"/>
-                        <Tab fx:id="reservationsTab" text="Reserved books" />
+                        <Tab fx:id="reservationsTab" text="Reserved books"/>
                     </tabs>
                 </TabPane>
             </center>

@@ -8,25 +8,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="496.0" prefWidth="705.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminController">
-   <children>
-      <BorderPane prefHeight="616.0" prefWidth="914.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <TabPane prefHeight="558.0" prefWidth="782.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-               <tabs>
-                  <Tab fx:id="usersTab" text="Users" />
-                  <Tab fx:id="booksTab" text="Books" />
-               </tabs>
-            </TabPane>
-         </center>
-         <top>
-            <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <items>
-                  <Button mnemonicParsing="false" onAction="#logout" text="Logout" />
-                  <Label fx:id="usernameLabel" />
-               </items>
-            </ToolBar>
-         </top>
-      </BorderPane>
-   </children>
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="496.0" prefWidth="705.0"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.AdminController">
+    <children>
+        <BorderPane prefHeight="616.0" prefWidth="914.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <center>
+                <TabPane prefHeight="558.0" prefWidth="782.0" tabClosingPolicy="UNAVAILABLE"
+                         BorderPane.alignment="CENTER">
+                    <tabs>
+                        <Tab fx:id="usersTab" text="Users"/>
+                        <Tab fx:id="booksTab" text="Books"/>
+                    </tabs>
+                </TabPane>
+            </center>
+            <top>
+                <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0"
+                         BorderPane.alignment="CENTER">
+                    <items>
+                        <Button mnemonicParsing="false" onAction="#logout" text="Logout"/>
+                        <Label fx:id="usernameLabel"/>
+                    </items>
+                </ToolBar>
+            </top>
+        </BorderPane>
+    </children>
 </AnchorPane>
