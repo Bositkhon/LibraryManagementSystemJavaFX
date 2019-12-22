@@ -50,8 +50,8 @@
             <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <items>
                   <TextField fx:id="searchTextField" />
-                <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchForBook" text="Search" />
-                  <Button fx:id="resetSearchButton" mnemonicParsing="false" text="Reset" />
+                 <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchForBook" text="Search" />
+                 <Button fx:id="resetSearchButton" mnemonicParsing="false" text="Reset" />
               </items>
             </ToolBar>
          </top>
