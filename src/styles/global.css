@@ -1,8 +1,8 @@
-.dark-bg {
+.toolbar, .dark-bg  {
     -fx-background-color: #1d2233;
 }
 
-.btn {
+.btn, .button {
     -fx-background-color: transparent;
     -fx-text-fill: #fff;
     -fx-border-width: 1px;
@@ -11,7 +11,7 @@
     -fx-border-radius: 5px;
 }
 
-.btn:hover {
+.btn:hover, .button:hover {
     -fx-background-color: #fff;
     -fx-border-color: transparent;
     -fx-text-fill: #1d2233;
