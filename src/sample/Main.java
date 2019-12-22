@@ -13,8 +13,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.RoleModel;
 import models.UserModel;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.time.format.DateTimeFormatter;
@@ -26,13 +30,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        AnchorPane parent = FXMLLoader.load(getClass().getResource("./../layouts/login_layout.fxml"));
+        AnchorPane parent = FXMLLoader.load(getClass().getResource("./../layouts/student_layout.fxml"));
         primaryStage.setScene(new Scene(parent));
         primaryStage.show();
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         launch(args);
     }
 }

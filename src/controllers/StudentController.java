@@ -34,7 +34,7 @@ public class StudentController implements Initializable {
             Parent parent3 = FXMLLoader.load(getClass().getResource("../layouts/student/student_fined_books_layout.fxml"));
             myFinedBooksTab.setContent(parent3);
             Parent parent4 = FXMLLoader.load(getClass().getResource("../layouts/student/networking_layout.fxml"));
-            myFinedBooksTab.setContent(parent4);
+            networkTab.setContent(parent4);
         } catch (IOException e) {
             e.printStackTrace();
         }
