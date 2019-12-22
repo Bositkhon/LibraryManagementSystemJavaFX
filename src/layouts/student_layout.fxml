@@ -17,6 +17,7 @@
                   <Tab fx:id="issueBooksTab" text="Issue a book" />
                   <Tab fx:id="myIssuedBooksTab" text="My issued books" />
                   <Tab fx:id="myFinedBooksTab" text="My fined books" />
+                   <Tab fx:id="networkTab" text="Search from Internet" />
                </tabs>
             </TabPane>
          </center>

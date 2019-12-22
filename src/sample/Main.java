@@ -26,7 +26,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        AnchorPane parent = FXMLLoader.load(getClass().getResource("./../layouts/student_layout.fxml"));
+        AnchorPane parent = FXMLLoader.load(getClass().getResource("./../layouts/login_layout.fxml"));
         primaryStage.setScene(new Scene(parent));
         primaryStage.show();
     }

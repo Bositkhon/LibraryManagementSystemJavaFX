@@ -21,6 +21,9 @@ public class StudentController implements Initializable {
     @FXML
     private Tab myFinedBooksTab;
 
+    @FXML
+    private Tab networkTab;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -30,6 +33,8 @@ public class StudentController implements Initializable {
             myIssuedBooksTab.setContent(parent2);
             Parent parent3 = FXMLLoader.load(getClass().getResource("../layouts/student/student_fined_books_layout.fxml"));
             myFinedBooksTab.setContent(parent3);
+            Parent parent4 = FXMLLoader.load(getClass().getResource("../layouts/student/networking_layout.fxml"));
+            myFinedBooksTab.setContent(parent4);
         } catch (IOException e) {
             e.printStackTrace();
         }
