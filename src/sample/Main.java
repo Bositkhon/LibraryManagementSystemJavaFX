@@ -1,7 +1,9 @@
 package sample;
 
+import com.sun.media.jfxmediaimpl.platform.gstreamer.GSTPlatform;
 import entities.Role;
 import entities.User;
+import helpers.Md5Converter;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.RoleModel;
 import models.UserModel;
+import org.apache.derby.impl.sql.catalog.SYSCOLUMNSRowFactory;
 
 import java.awt.event.ActionEvent;
 import java.sql.Timestamp;
@@ -27,10 +30,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        AnchorPane parent = FXMLLoader.load(getClass().getResource("./../layouts/student_layout.fxml"));
+        AnchorPane parent = FXMLLoader.load(getClass().getResource("./../layouts/login_layout.fxml"));
         primaryStage.setScene(new Scene(parent));
         primaryStage.show();
-
     }
 
 

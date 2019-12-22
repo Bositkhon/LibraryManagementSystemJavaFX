@@ -12,18 +12,18 @@
    <children>
       <BorderPane prefHeight="474.4" prefWidth="705.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <TableView fx:id="booksTableView" editable="true" prefHeight="526.0" prefWidth="1005.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="issuedBooksTableView" editable="true" prefHeight="526.0" prefWidth="1005.0" BorderPane.alignment="CENTER">
                <columns>
                   <TableColumn fx:id="serialTableColumn" prefWidth="30.40002405643463" text="#" />
-                  <TableColumn prefWidth="75.0" text="Status" />
+                  <TableColumn fx:id="statusTableColumn" prefWidth="75.0" text="Status" />
                   <TableColumn fx:id="titleTableColumn" prefWidth="119.99996376037598" text="Title" />
                   <TableColumn fx:id="subjectTableColumn" prefWidth="88.00006103515625" text="Subject" />
-                  <TableColumn prefWidth="75.0" text="Period" />
-                  <TableColumn prefWidth="75.0" text="Due date" />
+                  <TableColumn fx:id="periodTableColumn" prefWidth="75.0" text="Period" />
+                  <TableColumn fx:id="dueDateTableColumn" prefWidth="75.0" text="Due date" />
                   <TableColumn fx:id="authorTableColumn" prefWidth="87.20001220703125" text="Author" />
-                  <TableColumn fx:id="isbnTableColumn" prefWidth="189.60006713867188" text="ISBN" />
+                  <TableColumn fx:id="ISBNTableColumn" prefWidth="189.60006713867188" text="ISBN" />
                   <TableColumn fx:id="publishedDateTableColumn" prefWidth="104.79998779296875" text="Published Date" />
-                  <TableColumn fx:id="createdAtTableColumn" prefWidth="99.99993896484375" text="Created At" />
+                  <TableColumn fx:id="createdAtTableColumn" prefWidth="99.99993896484375" text="Issued at" />
                </columns>
             </TableView>
          </center>

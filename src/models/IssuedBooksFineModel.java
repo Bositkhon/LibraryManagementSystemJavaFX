@@ -32,8 +32,10 @@ public class IssuedBooksFineModel implements ModelInterface <IssuedBooksFine> {
         List <IssuedBooksFine> fines = new ArrayList<>();
         Statement statement = Db.getInstance().getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM ISSUED_BOOKS_FINES");
-        while (resultSet.next()){
-            fines.add(extractEntity(resultSet));
+        IssuedBooksFine issuedBooksFine = extractEntity(resultSet);
+        while (issuedBooksFine != null){
+            fines.add(issuedBooksFine);
+            issuedBooksFine = extractEntity(resultSet);
         }
         return fines;
     }
@@ -111,17 +113,13 @@ public class IssuedBooksFineModel implements ModelInterface <IssuedBooksFine> {
         return issuedBooksFines;
     }
 
-    public List<IssuedBooksFine> getByIssuedBookId(int id) throws SQLException{
-        List <IssuedBooksFine> issuedBooksFines = new ArrayList<>();
+    public IssuedBooksFine getByIssuedBookId(int id) throws SQLException{
         PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
                 "SELECT * FROM ISSUED_BOOKS_FINES WHERE ISSUED_BOOK_ID = ?"
         );
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
-        if(resultSet.next()){
-            issuedBooksFines.add(extractEntity(resultSet));
-        }
-        return issuedBooksFines;
+        return extractEntity(resultSet);
     }
 
 }

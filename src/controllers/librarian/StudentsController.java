@@ -1,4 +1,4 @@
-package controllers;
+package controllers.librarian;
 
 import entities.Role;
 import entities.User;
@@ -6,25 +6,22 @@ import helpers.AlertBox;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
-import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import models.RoleModel;
 import models.UserModel;
-import org.w3c.dom.Text;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class TestController implements Initializable {
+public class StudentsController implements Initializable {
 
     @FXML
     private TableView<User> userTableView;
@@ -39,13 +36,10 @@ public class TestController implements Initializable {
     private TableColumn<User, Role> roleTableColumn;
 
     @FXML
-    private TableColumn<User, String> passwordTableColumn;
-
-    @FXML
     private TableColumn<User, String> createdAtTableColumn;
 
     @FXML
-    private TableColumn<User, Void> actionsTableColumn;
+    private TableColumn<User, Void> deleteTableColumn;
 
     @FXML
     private TextField usernameTextField;
@@ -54,10 +48,10 @@ public class TestController implements Initializable {
     private PasswordField passwordField;
 
     @FXML
-    private Button addUserButton;
+    private TableColumn<User, Void> changePasswordTableColumn;
 
     @FXML
-    private ChoiceBox<Role> rolesChoiceBox;
+    private Button addUserButton;
 
     @FXML
     private Button resetSearchButton;
@@ -67,8 +61,10 @@ public class TestController implements Initializable {
         userTableView.setEditable(true);
         ObservableList<User> users = FXCollections.observableArrayList();
         try {
+            RoleModel roleModel = new RoleModel();
+            Role role = roleModel.getByTitle("Student");
             users = FXCollections.observableArrayList(
-                    (new UserModel()).getAll()
+                    (new UserModel()).getByRole(role)
             );
 
         } catch (SQLException e) {
@@ -84,9 +80,6 @@ public class TestController implements Initializable {
 
         usernameTableColumn.setCellFactory(TextFieldTableCell.<User>forTableColumn());
 
-        passwordTableColumn.setCellValueFactory(
-                new PropertyValueFactory<>("password")
-        );
         roleTableColumn.setCellValueFactory(role -> {
             User user = role.getValue();
             try {
@@ -143,7 +136,7 @@ public class TestController implements Initializable {
             }
         } );
 
-        actionsTableColumn.setCellFactory(userButtonTableColumn -> {
+        deleteTableColumn.setCellFactory(userButtonTableColumn -> {
             return new TableCell<User, Void>(){
                 private Button button = new Button("Delete");
                 {
@@ -165,12 +158,6 @@ public class TestController implements Initializable {
             };
         });
 
-        try {
-            rolesChoiceBox.getItems().addAll((new RoleModel()).getAll());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
         resetSearchButton.setOnAction(event -> initialize(url, resourceBundle));
 
     }
@@ -190,8 +177,8 @@ public class TestController implements Initializable {
                 new_user.setUsername(usernameTextField.getText());
                 new_user.setPassword(passwordField.getText());
                 RoleModel roleModel = new RoleModel();
-                Role role = rolesChoiceBox.getSelectionModel().getSelectedItem();
-                new_user.setRoleId(role.getId());
+                Role studentRole = roleModel.getByTitle("Student");
+                new_user.setRoleId(studentRole.getId());
                 if(userModel.insert(new_user)){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Success");

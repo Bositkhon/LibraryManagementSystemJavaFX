@@ -1,5 +1,9 @@
 package entities;
 
+import models.IssuedBookModel;
+import sample.Main;
+
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -43,6 +47,11 @@ public class IssuedBooksFine extends Entity{
 
     public void setFinedAt(Timestamp fined_at) {
         this.fined_at = fined_at;
+    }
+
+    public IssuedBook getIssuedBook() throws SQLException {
+        IssuedBookModel issuedBookModel = new IssuedBookModel();
+        return issuedBookModel.getById(this.getIssuedBookId());
     }
 
     @Override

@@ -30,8 +30,10 @@ public class IssuedBookModel implements ModelInterface <IssuedBook> {
         List <IssuedBook> issuedBooks = new ArrayList<>();
         Statement statement = Db.getInstance().getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM ISSUED_BOOKS");
-        while (resultSet.next()){
-            issuedBooks.add(extractEntity(resultSet));
+        IssuedBook issuedBook = extractEntity(resultSet);
+        while (issuedBook != null){
+            issuedBooks.add(issuedBook);
+            issuedBook = extractEntity(resultSet);
         }
         return issuedBooks;
     }
@@ -47,7 +49,7 @@ public class IssuedBookModel implements ModelInterface <IssuedBook> {
             IssuedBook issuedBook = new IssuedBook();
             issuedBook.setId(resultSet.getInt("ID"));
             issuedBook.setStatus(
-                    IssuedBook.Status.getStatusByTitle(resultSet.getString("STATUS"))
+                    IssuedBook.Status.getStatusTitleById(resultSet.getInt("STATUS"))
             );
             issuedBook.setUserId(resultSet.getInt("USER_ID"));
             issuedBook.setBookId(resultSet.getInt("BOOK_ID"));
@@ -62,16 +64,26 @@ public class IssuedBookModel implements ModelInterface <IssuedBook> {
     @Override
     public boolean insert(IssuedBook model) throws SQLException {
         if(model.validate()) {
-            PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
-                    "INSERT INTO ISSUED_BOOKS (STATUS, USER_ID, BOOK_ID, PERIOD_ID, DUE) VALUES (?, ?, ?, ?, ?)"
-            );
-            preparedStatement.setInt(1, IssuedBook.Status.getStatusId(model.getStatus()));
-            preparedStatement.setInt(2, model.getUserId());
-            preparedStatement.setInt(3, model.getBookId());
-            preparedStatement.setInt(4, model.getPeriodId());
-            preparedStatement.setDate(5, model.getDue());
-
-            return preparedStatement.executeUpdate() > 0;
+            if(model.getStatus() != null){
+                PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                        "INSERT INTO ISSUED_BOOKS (STATUS, USER_ID, BOOK_ID, PERIOD_ID, DUE) VALUES (?, ?, ?, ?, ?)"
+                );
+                preparedStatement.setInt(1, IssuedBook.Status.getStatusId(model.getStatus()));
+                preparedStatement.setInt(2, model.getUserId());
+                preparedStatement.setInt(3, model.getBookId());
+                preparedStatement.setInt(4, model.getPeriodId());
+                preparedStatement.setDate(5, model.getDue());
+                return preparedStatement.executeUpdate() > 0;
+            }else{
+                PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                        "INSERT INTO ISSUED_BOOKS (USER_ID, BOOK_ID, PERIOD_ID, DUE) VALUES (?, ?, ?, ?)"
+                );
+                preparedStatement.setInt(1, model.getUserId());
+                preparedStatement.setInt(2, model.getBookId());
+                preparedStatement.setInt(3, model.getPeriodId());
+                preparedStatement.setDate(4, model.getDue());
+                return preparedStatement.executeUpdate() > 0;
+            }
         }
         return false;
     }
@@ -119,19 +131,6 @@ public class IssuedBookModel implements ModelInterface <IssuedBook> {
         return issuedBooks;
     }
 
-    public List<IssuedBook> getByUserId(int id) throws SQLException{
-        List<IssuedBook> issuedBooks = new ArrayList<>();
-        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
-                "SELECT * FROM ISSUED_BOOKS WHERE USER_ID = ?"
-        );
-        preparedStatement.setInt(1, id);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()){
-            issuedBooks.add(extractEntity(resultSet));
-        }
-        return issuedBooks;
-    }
-
     public List<IssuedBook> getByBookId(int id) throws SQLException{
         List<IssuedBook> issuedBooks = new ArrayList<>();
         PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
@@ -152,8 +151,25 @@ public class IssuedBookModel implements ModelInterface <IssuedBook> {
         );
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()){
-            issuedBooks.add(extractEntity(resultSet));
+        IssuedBook issuedBook = extractEntity(resultSet);
+        while (issuedBook != null){
+            issuedBooks.add(issuedBook);
+            issuedBook = extractEntity(resultSet);
+        }
+        return issuedBooks;
+    }
+
+    public List<IssuedBook> getAllByUserId(int user_id) throws SQLException {
+        List<IssuedBook> issuedBooks = new ArrayList<>();
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM ISSUED_BOOKS WHERE USER_ID = ?"
+        );
+        preparedStatement.setInt(1, user_id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        IssuedBook issuedBook = extractEntity(resultSet);
+        while (issuedBook != null){
+            issuedBooks.add(issuedBook);
+            issuedBook = extractEntity(resultSet);
         }
         return issuedBooks;
     }

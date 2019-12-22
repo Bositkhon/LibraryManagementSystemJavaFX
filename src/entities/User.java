@@ -1,6 +1,5 @@
 package entities;
 
-import helpers.Db;
 import models.*;
 
 import java.sql.SQLException;
@@ -68,12 +67,12 @@ public class User extends Entity {
 
     public List <IssuedBook> getIssuedBooks() throws SQLException{
         IssuedBookModel issuedBookModel = new IssuedBookModel();
-        return issuedBookModel.getByUserId(this.getId());
+        return issuedBookModel.getAllByUserId(this.getId());
     }
 
     public List <Reservation> getReservations() throws SQLException{
         ReservationModel reservationModel = new ReservationModel();
-        return reservationModel.getByUserId(this.getId());
+        return reservationModel.getAllByUserId(this.getId());
     }
 
     @Override

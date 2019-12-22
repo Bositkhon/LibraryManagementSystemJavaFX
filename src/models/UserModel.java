@@ -1,9 +1,11 @@
 package models;
 
 import entities.Reservation;
+import entities.Role;
 import entities.User;
 import helpers.Db;
 import helpers.Md5Converter;
+import javafx.collections.FXCollections;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -160,6 +162,21 @@ public class UserModel implements ModelInterface<User> {
         preparedStatement.setString(1, username);
         ResultSet resultSet = preparedStatement.executeQuery();
         return extractEntity(resultSet);
+    }
+
+    public List<User> getByRole(Role role) throws SQLException {
+        List<User> users = new ArrayList<>();
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM USERS WHERE ROLE_ID = ?"
+        );
+        preparedStatement.setInt(1, role.getId());
+        ResultSet resultSet = preparedStatement.executeQuery();
+        User user = extractEntity(resultSet);
+        while(user != null){
+            users.add(user);
+            user = extractEntity(resultSet);
+        }
+        return users;
     }
 
 }

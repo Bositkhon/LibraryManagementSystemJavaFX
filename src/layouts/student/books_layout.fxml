@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane prefHeight="567.0" prefWidth="1028.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.student.FinedBooksController">
+<AnchorPane prefHeight="563.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.student.BooksController">
    <children>
       <BorderPane prefHeight="474.4" prefWidth="705.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -16,14 +16,18 @@
                <columns>
                   <TableColumn fx:id="serialTableColumn" prefWidth="30.40002405643463" text="#" />
                   <TableColumn fx:id="titleTableColumn" prefWidth="119.99996376037598" text="Title" />
+                  <TableColumn fx:id="quantityTableColumn" prefWidth="76.79995727539062" text="Quantity" />
                   <TableColumn fx:id="subjectTableColumn" prefWidth="88.00006103515625" text="Subject" />
-                  <TableColumn prefWidth="75.0" text="Period" />
-                  <TableColumn prefWidth="75.0" text="Due date" />
                   <TableColumn fx:id="authorTableColumn" prefWidth="87.20001220703125" text="Author" />
                   <TableColumn fx:id="isbnTableColumn" prefWidth="189.60006713867188" text="ISBN" />
                   <TableColumn fx:id="publishedDateTableColumn" prefWidth="104.79998779296875" text="Published Date" />
                   <TableColumn fx:id="createdAtTableColumn" prefWidth="99.99993896484375" text="Created At" />
-                  <TableColumn prefWidth="75.0" text="Reason" />
+                  <TableColumn fx:id="actionsTableColumn" prefWidth="85.60009765625" text="Actions">
+                     <columns>
+                        <TableColumn fx:id="issueTableColumn" prefWidth="75.0" />
+                        <TableColumn fx:id="reserveTableColumn" prefWidth="75.0" />
+                     </columns>
+                  </TableColumn>
                </columns>
             </TableView>
          </center>
@@ -31,8 +35,8 @@
             <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <items>
                   <TextField fx:id="searchTextField" />
-                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#search" text="Search" />
-                  <Button fx:id="resetSearchButton" mnemonicParsing="false" text="Reset" />
+                  <Button mnemonicParsing="false" onAction="#search" text="Search" />
+                  <Button fx:id="refreshButton" mnemonicParsing="false" text="Refresh and reset" />
                </items>
             </ToolBar>
          </top>

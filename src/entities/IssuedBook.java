@@ -3,6 +3,7 @@ package entities;
 import models.BookModel;
 import models.IssuePeriodModel;
 import models.IssuedBooksFineModel;
+import models.UserModel;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import java.util.List;
 public class IssuedBook extends Entity{
 
     public enum Status{
+
         ISSUED(1, "Issued"),
         FINED(2, "Fined");
 
@@ -59,15 +61,19 @@ public class IssuedBook extends Entity{
             return null;
         }
 
-        public static String getStatusTitleById(int id){
+        public static Status getStatusTitleById(int id){
             if(id == ISSUED.getId()){
-                return ISSUED.getTitle();
+                return ISSUED;
             }else if(id == FINED.getId()){
-                return FINED.getTitle();
+                return FINED;
             }
             return null;
         }
 
+        @Override
+        public String toString() {
+            return this.getTitle();
+        }
     };
 
     private Integer id;
@@ -149,14 +155,24 @@ public class IssuedBook extends Entity{
         return bookModel.getById(this.getBookId());
     }
 
-    public List <IssuedBooksFine> getFines() throws SQLException{
-        IssuedBooksFineModel issuedBooksFineModel = new IssuedBooksFineModel();
-        return issuedBooksFineModel.getByIssuedBookId(this.getId());
-    }
-
     public IssuePeriod getIssuePeriod() throws SQLException{
         IssuePeriodModel issuePeriodModel = new IssuePeriodModel();
         return issuePeriodModel.getById(this.getPeriodId());
+    }
+
+    public User getUser() throws SQLException {
+        UserModel userModel = new UserModel();
+        return userModel.getById(this.getUserId());
+    }
+
+    public IssuePeriod getPeriod() throws SQLException {
+        IssuePeriodModel model = new IssuePeriodModel();
+        return model.getById(this.getPeriodId());
+    }
+
+    public IssuedBooksFine getFine() throws SQLException {
+        IssuedBooksFineModel issuedBooksFineModel = new IssuedBooksFineModel();
+        return issuedBooksFineModel.getByIssuedBookId(this.getId());
     }
 
     @Override

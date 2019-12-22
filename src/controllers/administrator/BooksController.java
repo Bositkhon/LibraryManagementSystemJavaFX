@@ -1,4 +1,4 @@
-package controllers;
+package controllers.administrator;
 
 import entities.Book;
 import helpers.AlertBox;
@@ -57,6 +57,9 @@ public class BooksController implements Initializable {
 
     @FXML
     private TableColumn<Book, Integer> statusTableColumn;
+
+    @FXML
+    private Button resetSearchButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -227,6 +230,8 @@ public class BooksController implements Initializable {
             });
 
             createdAtTableColumn.setCellValueFactory(property -> new SimpleStringProperty(property.getValue().getCreatedAt().toString()));
+
+            resetSearchButton.setOnAction(event -> initialize(url, resourceBundle));
 
             ObservableList<Book> books = FXCollections.observableArrayList((new BookModel()).getAll());
             booksTableView.setItems(books);

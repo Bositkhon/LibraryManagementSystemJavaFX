@@ -30,8 +30,10 @@ public class IssuePeriodModel implements ModelInterface <IssuePeriod> {
         List <IssuePeriod> issuePeriods = new ArrayList<>();
         Statement statement = Db.getInstance().getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM ISSUE_PERIODS");
-        while(resultSet.next()){
-            issuePeriods.add(extractEntity(resultSet));
+        IssuePeriod issuePeriod = extractEntity(resultSet);
+        while(issuePeriod != null){
+            issuePeriods.add(issuePeriod);
+            issuePeriod = extractEntity(resultSet);
         }
         return issuePeriods;
     }

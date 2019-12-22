@@ -22,4 +22,8 @@ public class App {
         return this.loggedUser != null;
     }
 
+    public User getLoggedUser(){
+        return this.loggedUser;
+    }
+
 }

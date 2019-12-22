@@ -36,4 +36,9 @@ public class IssuePeriod extends Entity {
     public boolean validate() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return this.getTitle();
+    }
 }
