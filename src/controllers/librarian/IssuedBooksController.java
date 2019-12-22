@@ -3,6 +3,7 @@ package controllers.librarian;
 import entities.IssuePeriod;
 import entities.IssuedBook;
 import entities.User;
+import helpers.AlertBox;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -29,7 +30,8 @@ import java.util.ResourceBundle;
 
 public class IssuedBooksController implements Initializable {
 
-    public TableColumn statusTableColumn    ;
+    public TableColumn statusTableColumn;
+
     @FXML private TableView<IssuedBook> issuedBooksTable;
 
     @FXML private TableColumn<IssuedBook, Integer> serialTableColumn;
@@ -95,7 +97,22 @@ public class IssuedBooksController implements Initializable {
         returnTableColumn.setCellFactory(issuedBookVoidTableColumn -> {
             return new TableCell<>(){
                 private final Button button = new Button("Return");
-
+                {
+                    button.setOnAction(event -> {
+                        IssuedBook issuedBook = getTableView().getItems().get(getIndex());
+                        IssuedBookModel issuedBookModel1 = new IssuedBookModel();
+                        try {
+                            if(issuedBookModel.delete(issuedBook.getId())){
+                                getTableView().getItems().remove(issuedBook);
+                                AlertBox.success("Issue has successfully been deleted");
+                            }else{
+                                AlertBox.error("Issue can not be deleted");
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
                 @Override
                 protected void updateItem(Void aVoid, boolean b) {
                     super.updateItem(aVoid, b);
@@ -152,7 +169,7 @@ public class IssuedBooksController implements Initializable {
 
     }
 
-    public void searchIssuedBook(){
+    public void search(){
 
     }
 

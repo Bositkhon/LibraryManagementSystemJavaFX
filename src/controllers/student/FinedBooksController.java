@@ -3,15 +3,16 @@ package controllers.student;
 import entities.IssuePeriod;
 import entities.IssuedBook;
 import entities.IssuedBooksFine;
+import helpers.AlertBox;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import models.IssuedBookModel;
+import models.IssuedBooksFineModel;
 import sample.Main;
 
 import java.net.URL;
@@ -31,6 +32,8 @@ public class FinedBooksController implements Initializable {
     public TableColumn<IssuedBooksFine, String> isbnTableColumn;
     public TableColumn<IssuedBooksFine, Date> publishedDateTableColumn;
     public TableColumn<IssuedBooksFine, String> reasonTableColumn;
+    public Button resetSearchButton;
+    public TextField searchTextField;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,6 +100,8 @@ public class FinedBooksController implements Initializable {
             return new ReadOnlyObjectWrapper<>(cell.getValue().getReason());
         });
 
+        resetSearchButton.setOnAction(e -> initialize(url, resourceBundle));
+
         try {
             IssuedBookModel issuedBookModel = new IssuedBookModel();
             ObservableList<IssuedBook> issuedBooks = FXCollections.observableArrayList(issuedBookModel.getAllByUserId(Main.app.getLoggedUser().getId()));
@@ -112,7 +117,17 @@ public class FinedBooksController implements Initializable {
         }
     }
 
-    public void search(){
-
+    public void search() throws SQLException {
+        if(!searchTextField.getText().isEmpty()){
+            IssuedBooksFineModel issuedBooksFineModel = new IssuedBooksFineModel();
+            ObservableList<IssuedBooksFine> fines = FXCollections.observableArrayList(issuedBooksFineModel.search(searchTextField.getText()));
+            if(fines.isEmpty()){
+                AlertBox.alert(Alert.AlertType.INFORMATION, "No such book");
+            }else{
+                this.finesTableView.setItems(fines);
+            }
+        }else{
+            AlertBox.error("Field can not be empty!");
+        }
     }
 }

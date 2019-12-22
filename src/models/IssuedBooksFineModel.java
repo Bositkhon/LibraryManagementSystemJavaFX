@@ -122,4 +122,28 @@ public class IssuedBooksFineModel implements ModelInterface <IssuedBooksFine> {
         return extractEntity(resultSet);
     }
 
+    public List<IssuedBooksFine> search(String value) throws SQLException {
+        List<IssuedBooksFine> issuedBooksFines = new ArrayList<>();
+        value = "%" + value;
+        value = value + "%";
+        PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
+//SELECT * FROM ISSUED_BOOKS IB LEFT JOIN BOOKS B on IB.BOOK_ID = B.ID RIGHT JOIN ISSUED_BOOKS_FINES IBF ON IBF.ISSUED_BOOK_ID=IB.ID
+            "SELECT * FROM ISSUED_BOOKS IB LEFT JOIN BOOKS B on IB.BOOK_ID = B.ID RIGHT JOIN ISSUED_BOOKS_FINES IBF ON IBF.ISSUED_BOOK_ID=IB.ID " +
+                    "WHERE B.AUTHOR LIKE ? OR B.SUBJECT LIKE ? OR B.TITLE LIKE ?" +
+                    "OR B.ISBN LIKE ? OR IBF.REASON LIKE ?"
+        );
+        preparedStatement.setString(1, value);
+        preparedStatement.setString(2, value);
+        preparedStatement.setString(3, value);
+        preparedStatement.setString(4, value);
+        preparedStatement.setString(5, value);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        IssuedBooksFine issuedBooksFine = extractEntity(resultSet);
+        while(issuedBooksFine != null){
+            issuedBooksFines.add(issuedBooksFine);
+            issuedBooksFine = extractEntity(resultSet);
+        }
+        return issuedBooksFines;
+    }
+
 }
