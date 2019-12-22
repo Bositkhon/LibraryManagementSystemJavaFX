@@ -1,3 +1,9 @@
+.bg-white {
+    -fx-background-color: #fff;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
 .tool-bar, .dark-bg  {
     -fx-background-color: #1d2233;
 }
@@ -9,8 +15,22 @@
     -fx-border-style: solid;
     -fx-border-color: #fff;
     -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    
 }
-
+.button.btn--dark {
+    -fx-background-color: #1d2233;
+    -fx-text-fill: #fff; 
+    -fx-cursor: hand;
+    -fx-background-insets: 0, 0 0 0 0;
+    
+}
+.button.btn--dark:hover {
+    -fx-background-color: #fff;
+    -fx-text-fill: #1d2233;  
+    -fx-border-color: #1d2233;
+    
+}
 .btn:hover, .button:hover {
     -fx-background-color: #fff;
     -fx-border-color: transparent;
@@ -74,6 +94,18 @@
 }
 .table-view .table-cell{
     -fx-text-fill: #000;
+}
+.table-view .table-cell .button {
+    -fx-background-color: #1d2233;
+    -fx-text-fill: #fff; 
+     
+}
+
+.table-view .table-cell .button:hover {
+    -fx-background-color: #fff;
+    -fx-text-fill: #1d2233;  
+    -fx-border-color: #1d2233;
+    
 }
 .table-row-cell{
     -fx-background-color: #fff;
