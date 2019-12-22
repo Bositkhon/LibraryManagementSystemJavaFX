@@ -43,17 +43,21 @@ public class Networking implements Initializable {
         String isbn = txtISBN.getText().trim();
         ArrayList<String> data = new ArrayList<String>();
         data = API.getFromAPI(isbn);
-        System.out.println(data.get(0));
-        titleBook.setText(data.get(1));
+        if (data != null) {
+            System.out.println(data.get(0));
+            titleBook.setText(data.get(1));
 
-        Image image = new Image(data.get(0).toString());
-        imgBook.setImage(image);
+            Image image = new Image(data.get(0).toString());
+            imgBook.setImage(image);
 
-        String fields="";
-        for (int i = 2; i<data.size();i++){
-            fields+=data.get(i);
-            fields+="\n";
+            String fields = "";
+            for (int i = 2; i < data.size(); i++) {
+                fields += data.get(i);
+                fields += "\n";
+            }
+            fieldsBook.setText(fields);
+        }else {
+            titleBook.setText("Not Found");
         }
-        fieldsBook.setText(fields);
     }
 }
