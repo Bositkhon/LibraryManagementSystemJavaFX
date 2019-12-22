@@ -1,0 +1,87 @@
+.dark-bg {
+    -fx-background-color: #1d2233;
+}
+
+.btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #fff;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    -fx-border-color: #fff;
+    -fx-border-radius: 5px;
+}
+
+.btn:hover {
+    -fx-background-color: #fff;
+    -fx-border-color: transparent;
+    -fx-text-fill: #1d2233;
+}
+
+.tab-pane {
+    -fx-tab-min-width: 100px;
+
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #1d2233;
+}
+
+.tab-pane:top *.tab-header-area {
+    -fx-background-insets: 0, 0 0 1 0;
+    /* -fx-padding: 0.416667em 0.166667em 0.0em 0.833em; /* 5 2 0 10 */
+    -fx-padding: 1em 0.0em 0.0em 0.0em;
+    /* overridden as 5 2 0 0 */
+}
+
+.tab-pane .tab {
+    -fx-background-color: #1d2233;
+    -fx-background-insets: 0 1 0 1, 0, 0;
+    -fx-border-style: solid solid none solid;
+    -fx-border-width: 0.5px;
+    -fx-border-color: #fff;
+    -fx-border-radius: 5px 5px 0.0 0.0;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: #fff;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #fff;
+}
+
+.tab-pane .tab:selected .tab-label{
+    -fx-text-fill: #000;
+}
+
+
+/* Table View */
+.table-view {
+    -fx-background-color: transparent;
+}
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background{
+    -fx-background-color: #1d2233;
+}
+.table-view .column-header-background .label{
+    -fx-text-fill: #fff;
+    
+}
+.table-view .table-column {
+    -fx-background-color: transparent;
+}
+.table-view .table-cell{
+    -fx-text-fill: #000;
+}
+.table-row-cell{
+    -fx-background-color: #fff;
+}
+.table-row-cell:odd{
+    -fx-background-color: #ececec;
+}
+.table-row-cell:selected {
+    -fx-background-color: #cecece;
+    
+}

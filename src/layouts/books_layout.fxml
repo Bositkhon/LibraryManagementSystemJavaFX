@@ -7,14 +7,16 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane prefHeight="531.0" prefWidth="961.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.administrator.BooksController">
+<AnchorPane prefHeight="531.0" prefWidth="961.0" styleClass="books__layout" stylesheets="@../styles/books_layout.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.administrator.BooksController">
    <children>
       <BorderPane prefHeight="474.0" prefWidth="705.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <TableView fx:id="booksTableView" editable="true" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="booksTableView" editable="true" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/global.css" BorderPane.alignment="CENTER">
                <columns>
                   <TableColumn fx:id="serialTableColumn" prefWidth="30.40002405643463" text="#" />
                   <TableColumn fx:id="titleTableColumn" prefWidth="156.0" text="Title" />
@@ -33,9 +35,16 @@
             </TableView>
          </center>
          <bottom>
-            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <ToolBar prefHeight="40.0" prefWidth="200.0" styleClass="dark-bg" stylesheets="@../styles/global.css" BorderPane.alignment="CENTER">
                <items>
-                  <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#addBook" prefHeight="26.0" prefWidth="76.0" text="Add" />
+                  <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#addBook" prefHeight="26.0" prefWidth="76.0" styleClass="btn" text="Add">
+                     <graphic>
+                        <ImageView fitHeight="13.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/add.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                   <TextField fx:id="titleTextField" promptText="Title" />
                   <Spinner fx:id="quantitySpinner" editable="true" prefHeight="26.0" prefWidth="48.0" />
                   <TextField fx:id="subjectTextField" promptText="Subject" />
@@ -47,11 +56,25 @@
             </ToolBar>
          </bottom>
          <top>
-            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <ToolBar prefHeight="40.0" prefWidth="200.0" styleClass="dark-bg" stylesheets="@../styles/global.css" BorderPane.alignment="CENTER">
               <items>
                   <TextField fx:id="searchTextField" />
-                <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchForBook" text="Search" />
-                  <Button fx:id="resetSearchButton" mnemonicParsing="false" text="Reset" />
+                <Button fx:id="searchButton" graphicTextGap="8.0" mnemonicParsing="false" onAction="#searchForBook" styleClass="btn" text="Search">
+                     <graphic>
+                        <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/search.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="resetSearchButton" mnemonicParsing="false" styleClass="btn" text="Reset">
+                     <graphic>
+                        <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/reset.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
               </items>
             </ToolBar>
          </top>
