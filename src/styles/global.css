@@ -20,12 +20,12 @@
     -fx-border-color: #fff;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
+    -fx-cursor: hand;
     
 }
 .button.btn--dark {
     -fx-background-color: #1d2233;
     -fx-text-fill: #fff; 
-    -fx-cursor: hand;
     -fx-background-insets: 0, 0 0 0 0;
     
 }
@@ -92,6 +92,12 @@
 .table-view .column-header-background .label{
     -fx-text-fill: #fff;
     
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: #1d2233;
 }
 .table-view .table-column {
     -fx-background-color: transparent;
