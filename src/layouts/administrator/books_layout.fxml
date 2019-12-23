@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane prefHeight="531.0" prefWidth="961.0" stylesheets="@../../styles/global.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.administrator.BooksController">
+<AnchorPane prefHeight="525.0" prefWidth="1003.0" stylesheets="@../../styles/global.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.administrator.BooksController">
    <children>
       <BorderPane prefHeight="531.0" prefWidth="961.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -26,9 +26,10 @@
                   <TableColumn fx:id="isbnTableColumn" prefWidth="189.60006713867188" text="ISBN" />
                   <TableColumn fx:id="publishedDateTableColumn" prefWidth="104.79998779296875" text="Published Date" />
                   <TableColumn fx:id="createdAtTableColumn" prefWidth="99.99993896484375" text="Created At" />
-                  <TableColumn fx:id="actionsTableColumn" prefWidth="85.60009765625" text="Actions">
+                  <TableColumn prefWidth="85.60009765625" text="Actions">
                      <columns>
-                        <TableColumn fx:id="deleteTableColumn" prefWidth="75.0" text="Delete" />
+                        <TableColumn fx:id="deleteTableColumn" prefWidth="75.0" />
+                        <TableColumn fx:id="modifyTableColumn" prefWidth="75.0" />
                      </columns>
                   </TableColumn>
                </columns>
@@ -37,7 +38,7 @@
          <bottom>
             <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <items>
-                  <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#addBook" prefHeight="26.0" prefWidth="76.0" text="Add">
+                  <Button mnemonicParsing="false" onAction="#addBook" prefHeight="26.0" prefWidth="76.0" text="Add">
                      <graphic>
                         <ImageView fitHeight="13.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -51,7 +52,7 @@
                   <TextField fx:id="authorTextField" promptText="Author" />
                   <TextField fx:id="isbnTextField" promptText="ISBN" />
                   <DatePicker fx:id="publishedDatePicker" promptText="Published date" />
-                  <Button fx:id="clearButton" cancelButton="true" mnemonicParsing="false" onAction="#clear" text="Clear" />
+                  <Button cancelButton="true" mnemonicParsing="false" onAction="#clear" text="Clear" />
                </items>
             </ToolBar>
          </bottom>
@@ -59,7 +60,7 @@
             <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <items>
                   <TextField fx:id="searchTextField" />
-                <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchForBook" text="Search">
+                <Button mnemonicParsing="false" onAction="#search" text="Search">
                      <graphic>
                         <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -67,7 +68,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="resetSearchButton" mnemonicParsing="false" text="Reset">
+                  <Button fx:id="resetButton" mnemonicParsing="false" text="Reset">
                      <graphic>
                         <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                            <image>
