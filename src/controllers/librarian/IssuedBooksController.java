@@ -28,7 +28,9 @@ import java.util.ResourceBundle;
 
 public class IssuedBooksController implements Initializable {
 
-    public TableColumn statusTableColumn;
+//    public TableColumn statusTableColumn;
+
+    @FXML private  TableColumn<IssuedBook, String> statusTableColumn;
 
     @FXML private TableView<IssuedBook> issuedBooksTable;
 
@@ -52,6 +54,10 @@ public class IssuedBooksController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         IssuedBookModel issuedBookModel = new IssuedBookModel();
+
+        statusTableColumn.setCellValueFactory(column->{
+            return new SimpleStringProperty(column.getValue().getStatus().getTitle());
+        });
 
         serialTableColumn.setCellValueFactory(cell -> {
             return new ReadOnlyObjectWrapper<>(cell.getTableView().getItems().indexOf(cell.getValue()) + 1);
