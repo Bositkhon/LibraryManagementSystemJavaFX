@@ -43,18 +43,22 @@ public class NetworkingController {
             ArrayList<String> data;
             data = API.getFromAPI(isbn);
             if (data != null) {
-                System.out.println(data.get(0));
-                titleBook.setText(data.get(1));
+                if (data.get(0).toString().equals("vpn")){
+                    AlertBox.error("Please use VPN");
+                }else {
+                    System.out.println(data.get(0));
+                    titleBook.setText(data.get(1));
 
-                Image image = new Image(data.get(0));
-                imgBook.setImage(image);
+                    Image image = new Image(data.get(0));
+                    imgBook.setImage(image);
 
-                StringBuilder fields = new StringBuilder();
-                for (int i = 2; i < data.size(); i++) {
-                    fields.append(data.get(i));
-                    fields.append("\n");
+                    StringBuilder fields = new StringBuilder();
+                    for (int i = 2; i < data.size(); i++) {
+                        fields.append(data.get(i));
+                        fields.append("\n");
+                    }
+                    fieldsBook.setText(fields.toString());
                 }
-                fieldsBook.setText(fields.toString());
             } else {
                 AlertBox.error("Book not found");
             }
