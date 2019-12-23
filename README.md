@@ -1,13 +1,31 @@
 # LibraryManagementSystemJavaFX
 ## Group members:
 - Bositkhon Shoumarov
-- Umarbekov Kobil
+- Umarbekov Kobilbek
 - Sapaev Shukurillo
 - Karaev Farrukh
 - Meliev Abduxabib
 - Gafurov Shokhrukh
 
-Username - password to enter the system
-Administrator - qwerty
-Student - student
-Librarian - librarian
+## Users
+### Administrator
+
+Login - `Administrator`
+ 
+Password - `qwerty`
+
+### Librarian
+
+Login - `Librarian`
+ 
+Password - `librarian`
+
+### Student
+
+Login - `Student`
+ 
+Password - `student`
+
+## External libraries
+### Java HTML parser (Jsoup)
+https://jsoup.org
