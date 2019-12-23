@@ -12,10 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.IssuedBookModel;
@@ -31,38 +28,48 @@ public class IssuedBooksController implements Initializable {
 
 //    public TableColumn statusTableColumn;
 
-    @FXML private  TableColumn<IssuedBook, String> statusTableColumn;
+    @FXML
+    private TableColumn<IssuedBook, String> statusTableColumn;
 
-    @FXML private TableView<IssuedBook> issuedBooksTable;
+    @FXML
+    private TableView<IssuedBook> issuedBooksTable;
 
-    @FXML private TableColumn<IssuedBook, Integer> serialTableColumn;
+    @FXML
+    private TableColumn<IssuedBook, Integer> serialTableColumn;
 
-    @FXML private TableColumn<IssuedBook, String>  usernameTableColumn;
+    @FXML
+    private TableColumn<IssuedBook, String> usernameTableColumn;
 
-    @FXML private TableColumn<IssuedBook, String> bookTitleTableColumn;
+    @FXML
+    private TableColumn<IssuedBook, String> bookTitleTableColumn;
 
-    @FXML private TableColumn<IssuedBook, String> periodTableColumn;
+    @FXML
+    private TableColumn<IssuedBook, String> periodTableColumn;
 
-    @FXML private TableColumn<IssuedBook, Date> dueDateTableColumn;
+    @FXML
+    private TableColumn<IssuedBook, Date> dueDateTableColumn;
 
-    @FXML private TableColumn<IssuedBook, String> issuedDateTableColumn;
+    @FXML
+    private TableColumn<IssuedBook, String> issuedDateTableColumn;
 
-    @FXML private TableColumn<IssuedBook, Void> returnTableColumn;
+    @FXML
+    private TableColumn<IssuedBook, Void> returnTableColumn;
 
-    @FXML private TableColumn<IssuedBook, Void> fineTableColumn;
+    @FXML
+    private TableColumn<IssuedBook, Void> fineTableColumn;
+
+    public TextField searchTextField;
+
+    public Button resetButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         IssuedBookModel issuedBookModel = new IssuedBookModel();
 
-        statusTableColumn.setCellValueFactory(column->{
-            return new SimpleStringProperty(column.getValue().getStatus().getTitle());
-        });
+        serialTableColumn.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getTableView().getItems().indexOf(cell.getValue()) + 1));
 
-        serialTableColumn.setCellValueFactory(cell -> {
-            return new ReadOnlyObjectWrapper<>(cell.getTableView().getItems().indexOf(cell.getValue()) + 1);
-        });
+        statusTableColumn.setCellValueFactory(column -> new SimpleStringProperty(column.getValue().getStatus().getTitle()));
 
         usernameTableColumn.setCellValueFactory(column -> {
             try {
@@ -100,18 +107,19 @@ public class IssuedBooksController implements Initializable {
         });
 
         returnTableColumn.setCellFactory(issuedBookVoidTableColumn -> {
-            return new TableCell<>(){
+            return new TableCell<>() {
                 private final Button button = new Button("Return");
+
                 {
                     button.setOnAction(event -> {
                         IssuedBook issuedBook = getTableView().getItems().get(getIndex());
                         IssuedBookModel issuedBookModel1 = new IssuedBookModel();
                         try {
                             System.out.println(issuedBook.getId());
-                            if(issuedBookModel.delete(issuedBook.getId())){
+                            if (issuedBookModel.delete(issuedBook.getId())) {
                                 getTableView().getItems().remove(issuedBook);
                                 AlertBox.success("Issue has successfully been deleted");
-                            }else{
+                            } else {
                                 AlertBox.error("Issue can not be deleted");
                             }
                         } catch (SQLException e) {
@@ -119,12 +127,13 @@ public class IssuedBooksController implements Initializable {
                         }
                     });
                 }
+
                 @Override
                 protected void updateItem(Void aVoid, boolean b) {
                     super.updateItem(aVoid, b);
-                    if(b){
+                    if (b) {
                         setGraphic(null);
-                    }else{
+                    } else {
                         setGraphic(button);
                     }
                 }
@@ -132,8 +141,9 @@ public class IssuedBooksController implements Initializable {
         });
 
         fineTableColumn.setCellFactory(issuedBookVoidTableColumn -> {
-            return new TableCell<>(){
+            return new TableCell<>() {
                 private final Button button = new Button("Fine");
+
                 {
                     button.setOnAction(event -> {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("./../../layouts/librarian/fine_form_layout.fxml"));
@@ -149,38 +159,46 @@ public class IssuedBooksController implements Initializable {
                         }
                     });
                 }
+
                 @Override
                 protected void updateItem(Void aVoid, boolean b) {
                     super.updateItem(aVoid, b);
-                    if(b){
+                    if (b) {
                         setGraphic(null);
-                    }else{
+                    } else {
                         setGraphic(button);
                     }
                 }
             };
         });
 
-
         try {
             ObservableList<IssuedBook> books = FXCollections.observableArrayList(issuedBookModel.getAll());
-            issuedBooksTable.getItems().addAll(books);
+            issuedBooksTable.setItems(books);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-    }
-
-    public void addBook(){
+        resetButton.setOnAction(e -> initialize(url, resourceBundle));
 
     }
 
-    public void search(){
-
-    }
-
-    public void clear(){
-
+    public void search() {
+        if(searchTextField.getText().isEmpty()){
+            AlertBox.error("Field can not be empty");
+        }else{
+            try {
+                IssuedBookModel issuedBookModel = new IssuedBookModel();
+                ObservableList<IssuedBook> list = FXCollections.observableArrayList(issuedBookModel.search(searchTextField.getText()));
+                if(list.isEmpty()){
+                    AlertBox.alert(Alert.AlertType.INFORMATION, "No such book");
+                }else{
+                    issuedBooksTable.setItems(list);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }
