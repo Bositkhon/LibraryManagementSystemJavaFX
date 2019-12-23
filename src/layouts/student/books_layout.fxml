@@ -5,10 +5,12 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane prefHeight="563.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.student.BooksController">
+<AnchorPane prefHeight="563.0" prefWidth="953.0" stylesheets="@../../styles/global.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.student.BooksController">
    <children>
       <BorderPane prefHeight="474.4" prefWidth="705.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -35,8 +37,22 @@
             <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <items>
                   <TextField fx:id="searchTextField" />
-                  <Button mnemonicParsing="false" onAction="#search" text="Search" />
-                  <Button fx:id="refreshButton" mnemonicParsing="false" text="Refresh and reset" />
+                  <Button mnemonicParsing="false" onAction="#search" text="Search">
+                     <graphic>
+                        <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/search.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="refreshButton" mnemonicParsing="false" text="Refresh and reset">
+                     <graphic>
+                        <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/reset.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                </items>
             </ToolBar>
          </top>
