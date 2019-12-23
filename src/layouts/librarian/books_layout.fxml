@@ -28,7 +28,8 @@
                   <TableColumn fx:id="createdAtTableColumn" prefWidth="99.99993896484375" text="Created At" />
                   <TableColumn fx:id="actionsTableColumn" prefWidth="85.60009765625" text="Actions">
                      <columns>
-                        <TableColumn fx:id="deleteTableColumn" prefWidth="75.0" text="Delete" />
+                        <TableColumn fx:id="deleteTableColumn" prefWidth="75.0"/>
+                        <TableColumn fx:id="modifyTableColumn" prefWidth="75.0"/>
                      </columns>
                   </TableColumn>
                </columns>
