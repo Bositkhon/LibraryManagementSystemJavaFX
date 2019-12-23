@@ -236,7 +236,9 @@ public class UsersController implements Initializable {
                 new_user.setPassword(passwordField.getText());
                 RoleModel roleModel = new RoleModel();
                 Role role = rolesChoiceBox.getSelectionModel().getSelectedItem();
-                new_user.setRoleId(role.getId());
+                if(role != null){
+                    new_user.setRoleId(role.getId());
+                }
                 if(userModel.insert(new_user)){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Success");

@@ -108,6 +108,10 @@ public class Book extends Entity {
             this.addError("Title can not be empty");
             valid = false;
         }
+        if(this.published_date == null){
+            this.addError("Published date can not be empty");
+            valid = false;
+        }
         return valid;
     }
 }

@@ -17,6 +17,8 @@ import java.util.ResourceBundle;
 public class LibrarianController implements Initializable, LogoutInterface {
 
     @FXML
+    public Tab reservationsTab;
+    @FXML
     private Tab studentsTab;
 
     @FXML
@@ -39,6 +41,8 @@ public class LibrarianController implements Initializable, LogoutInterface {
             studentsTab.setContent(studentsTabPane);
             Parent finesTabPane = FXMLLoader.load(getClass().getResource("./../layouts/librarian/fined_books_layout.fxml"));
             finesTab.setContent(finesTabPane);
+            Parent reservationsTabPane = FXMLLoader.load(getClass().getResource("./../layouts/librarian/reservations_layout.fxml"));
+            reservationsTab.setContent(reservationsTabPane);
         }catch (IOException e){
             e.printStackTrace();
         }

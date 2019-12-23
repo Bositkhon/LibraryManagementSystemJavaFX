@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane prefHeight="559.0" prefWidth="903.0" stylesheets="@../../styles/global.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.librarian.ReservationsController">
+   <children>
+      <BorderPane layoutX="166.0" layoutY="-16.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <items>
+                  <TextField fx:id="searchTextField" />
+                <Button mnemonicParsing="false" onAction="#search" text="Search" />
+                  <Button fx:id="resetButton" mnemonicParsing="false" text="Reset" />
+              </items>
+            </ToolBar>
+         </top>
+         <center>
+            <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="serialColumn" prefWidth="32.800018310546875" text="#" />
+                <TableColumn fx:id="usernameColumn" prefWidth="117.60000610351562" text="Username" />
+                  <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Title" />
+                  <TableColumn fx:id="subjectColumn" prefWidth="75.0" text="Subject" />
+                  <TableColumn fx:id="authorColumn" prefWidth="75.0" text="Author" />
+                  <TableColumn fx:id="isbnColumn" prefWidth="75.0" text="ISBN" />
+                  <TableColumn fx:id="publishedDateColumn" prefWidth="103.20001220703125" text="Published date" />
+                  <TableColumn prefWidth="75.0" text="Actions">
+                     <columns>
+                        <TableColumn fx:id="deleteColumn" prefWidth="75.0" />
+                        <TableColumn fx:id="modifyColumn" prefWidth="75.0" />
+                     </columns>
+                  </TableColumn>
+              </columns>
+            </TableView>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

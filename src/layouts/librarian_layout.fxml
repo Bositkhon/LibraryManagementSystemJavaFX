@@ -24,6 +24,7 @@
                         <Tab fx:id="booksTab" text="Books"/>
                         <Tab fx:id="issuedBooksTab" text="Issued Books"/>
                         <Tab fx:id="finesTab" text="Issued Books Fine"/>
+                        <Tab fx:id="reservationsTab" text="Reservations"/>
                     </tabs>
                 </TabPane>
             </center>

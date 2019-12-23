@@ -24,9 +24,14 @@ public class API {
             e.printStackTrace();
             return null;
         }
-
         Element content = doc.getElementById("book");
-        Elements ps = content.select("p");
+        Elements ps = null;
+        try {
+            ps = content.select("p");
+        }catch (NullPointerException err){
+            data.add("vpn");
+            return data;
+        }
         data.add(content.getElementsByTag("img").attr("src"));
         data.add(content.select("h1").text());
         for (Element p : ps) {
