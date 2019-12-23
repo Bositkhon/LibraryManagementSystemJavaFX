@@ -87,8 +87,18 @@ public class StudentsController implements Initializable {
                 private Button button = new Button("Delete");
                 {
                     button.setOnAction(event -> {
-                        User user = getTableView().getItems().get(getIndex());
-                        getTableView().getItems().remove(user);
+                        try{
+                            User user = getTableView().getItems().get(getIndex());
+                            UserModel userModel = new UserModel();
+                            if(userModel.delete(user.getId())){
+                                AlertBox.success("User has successfully been deleted");
+                                getTableView().getItems().remove(getIndex());
+                            }else{
+                                AlertBox.error("User can not be deleted");
+                            }
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                        }
                     });
                 }
 
