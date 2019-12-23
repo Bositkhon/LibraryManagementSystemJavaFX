@@ -10,14 +10,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
 import models.RoleModel;
 import models.UserModel;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -91,6 +96,38 @@ public class StudentsController implements Initializable {
                 protected void updateItem(Void aVoid, boolean b) {
                     super.updateItem(aVoid, b);
                     if(b){
+                        setGraphic(null);
+                    }else{
+                        setGraphic(button);
+                    }
+                }
+            };
+        });
+
+        modifyTableColumn.setCellFactory(cell -> {
+            return new TableCell<>(){
+                private Button button = new Button("Modify");
+                {
+                    button.setOnAction(event -> {
+                        try{
+                            User user = getTableView().getItems().get(getIndex());
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("./../../layouts/librarian/modify_user_form_layout.fxml"));
+                            Parent parent = loader.load();
+                            ModifyUserFormController controller = loader.getController();
+                            controller.set(user, getTableView(), getIndex());
+                            Stage stage = new Stage();
+                            stage.setScene(new Scene(parent));
+                            stage.show();
+                        }catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    });
+                }
+
+                @Override
+                protected void updateItem(Void aVoid, boolean b) {
+                    super.updateItem(aVoid, b);
+                    if(b) {
                         setGraphic(null);
                     }else{
                         setGraphic(button);
