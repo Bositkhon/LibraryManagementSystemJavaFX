@@ -3,6 +3,7 @@ package models;
 import entities.Reservation;
 import entities.User;
 import helpers.Db;
+import jdk.jshell.spi.SPIResolutionException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -124,6 +125,30 @@ public class ReservationModel implements ModelInterface <Reservation> {
         );
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
+        Reservation reservation = extractEntity(resultSet);
+        while (reservation != null){
+            reservations.add(reservation);
+            reservation = extractEntity(resultSet);
+        }
+        return reservations;
+    }
+
+    public List<Reservation> search(String value) throws SQLException {
+        value = "%" + value + "%";
+        List<Reservation> reservations = new ArrayList<>();
+        PreparedStatement statement = Db.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM RESERVATIONS R " +
+                        "LEFT JOIN BOOKS B on R.BOOK_ID = B.ID " +
+                        "LEFT JOIN USERS U on R.USER_ID = U.ID " +
+                        "WHERE B.TITLE LIKE ? OR B.AUTHOR LIKE ? OR B.SUBJECT LIKE ? OR B.ISBN LIKE ? " +
+                        "OR U.USERNAME LIKE ?"
+        );
+        statement.setString(1, value);
+        statement.setString(2, value);
+        statement.setString(3, value);
+        statement.setString(4, value);
+        statement.setString(5, value);
+        ResultSet resultSet = statement.executeQuery();
         Reservation reservation = extractEntity(resultSet);
         while (reservation != null){
             reservations.add(reservation);

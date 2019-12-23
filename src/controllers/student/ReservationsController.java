@@ -1,4 +1,4 @@
-package controllers;
+package controllers.student;
 
 import entities.IssuedBook;
 import entities.Reservation;
@@ -52,7 +52,7 @@ public class ReservationsController implements Initializable {
     public TextField searchTextField;
 
     @FXML
-    public Button resetSearchButton;
+    public Button resetButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -148,6 +148,8 @@ public class ReservationsController implements Initializable {
             };
         });
 
+        resetButton.setOnAction(event -> initialize(url, resourceBundle) );
+
         try {
             ObservableList<Reservation> reservations = FXCollections.observableArrayList(reservationModel.getAllByUserId(Main.app.getLoggedUser().getId()));
             this.reservationsTableView.setItems(reservations);
@@ -157,7 +159,21 @@ public class ReservationsController implements Initializable {
     }
 
     public void search(ActionEvent event){
-
+        if(searchTextField.getText().isEmpty()){
+            AlertBox.error("Field can not be empty");
+        }else{
+            ReservationModel reservationModel = new ReservationModel();
+            try{
+                ObservableList<Reservation> reservations = FXCollections.observableArrayList(reservationModel.search(searchTextField.getText()));
+                if(reservations.isEmpty()){
+                    AlertBox.alert(Alert.AlertType.INFORMATION, "No such book");
+                }else{
+                    reservationsTableView.setItems(reservations);
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
     }
 
 }
