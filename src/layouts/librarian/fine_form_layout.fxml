@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<AnchorPane prefHeight="258.0" prefWidth="287.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.librarian.FineController">
+<AnchorPane prefHeight="258.0" prefWidth="287.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.librarian.FineFormController">
    <children>
       <GridPane layoutX="101.0" layoutY="72.0" prefHeight="258.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>

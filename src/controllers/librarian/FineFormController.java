@@ -11,7 +11,7 @@ import models.IssuedBooksFineModel;
 
 import java.sql.SQLException;
 
-public class FineController {
+public class FineFormController {
 
     private IssuedBook issuedBook;
     private boolean isInitialized;

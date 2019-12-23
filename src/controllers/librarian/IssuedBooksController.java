@@ -1,9 +1,8 @@
 package controllers.librarian;
 
-import entities.IssuePeriod;
 import entities.IssuedBook;
-import entities.User;
 import helpers.AlertBox;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -21,7 +20,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.IssuedBookModel;
 
-import javax.swing.text.DateFormatter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -55,9 +53,9 @@ public class IssuedBooksController implements Initializable {
 
         IssuedBookModel issuedBookModel = new IssuedBookModel();
 
-        serialTableColumn.setCellValueFactory(
-                new PropertyValueFactory<IssuedBook, Integer>("id")
-        );
+        serialTableColumn.setCellValueFactory(cell -> {
+            return new ReadOnlyObjectWrapper<>(cell.getTableView().getItems().indexOf(cell.getValue()) + 1);
+        });
 
         usernameTableColumn.setCellValueFactory(column -> {
             try {
@@ -133,7 +131,7 @@ public class IssuedBooksController implements Initializable {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("./../../layouts/librarian/fine_form_layout.fxml"));
                         try {
                             Parent parent = loader.load();
-                            FineController controller = loader.getController();
+                            FineFormController controller = loader.getController();
                             controller.setIssuedBook(getTableView().getItems().get(getIndex()));
                             Stage stage = new Stage();
                             stage.setScene(new Scene(parent));

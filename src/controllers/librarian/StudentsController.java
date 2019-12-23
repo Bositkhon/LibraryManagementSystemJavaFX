@@ -3,6 +3,7 @@ package controllers.librarian;
 import entities.Role;
 import entities.User;
 import helpers.AlertBox;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -71,9 +72,9 @@ public class StudentsController implements Initializable {
             e.printStackTrace();
         }
 
-        serialTableColumn.setCellValueFactory(
-                new PropertyValueFactory<>("id")
-        );
+        serialTableColumn.setCellValueFactory(cell -> {
+            return new ReadOnlyObjectWrapper<>(cell.getTableView().getItems().indexOf(cell.getValue()) + 1);
+        });
         usernameTableColumn.setCellValueFactory(
                 new PropertyValueFactory<>("username")
         );

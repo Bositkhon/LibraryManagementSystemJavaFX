@@ -3,6 +3,8 @@ package controllers.librarian;
 import controllers.administrator.ModifyUserFormController;
 import entities.Book;
 import helpers.AlertBox;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -76,9 +78,9 @@ public class BooksController implements Initializable {
         booksTableView.setEditable(true);
         try {
 
-            serialTableColumn.setCellValueFactory(
-                    new PropertyValueFactory<Book, Integer>("id")
-            );
+            serialTableColumn.setCellValueFactory(cell -> {
+                return new ReadOnlyObjectWrapper<>(cell.getTableView().getItems().indexOf(cell.getValue()) + 1);
+            });
 
             titleTableColumn.setCellValueFactory(
                     new PropertyValueFactory<Book, String >("title")
