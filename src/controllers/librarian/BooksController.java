@@ -55,6 +55,8 @@ public class BooksController implements Initializable {
     @FXML
     private TableColumn<Book, Void> deleteTableColumn;
 
+    public TableColumn<Book, Void> modifyTableColumn;
+
     @FXML
     private TableColumn<Book, Integer> statusTableColumn;
 
@@ -178,23 +180,6 @@ public class BooksController implements Initializable {
                 return new SimpleObjectProperty<>(column.getValue().getPublishedDate());
             });
 
-            /*publishedDateTableColumn.setOnEditCommit(event -> {
-                TablePosition<Book, Date> position = event.getTablePosition();
-                int row = position.getRow();
-                Date date = event.getNewValue();
-                Book book = event.getTableView().getItems().get(row);
-                book.setPublishedDate(date);
-                try {
-                    if(bookModel.update(book)){
-                        AlertBox.success("Book has successfully been updated");
-                    }else{
-                        AlertBox.error("Book could not be updated", book.getErrors().toString());
-                    }
-                }catch (SQLException e){
-                    e.printStackTrace();
-                }
-            });*/
-
             deleteTableColumn.setCellFactory(column -> {
                 return new TableCell<Book, Void>(){
                     private Button button = new Button("Delete");
@@ -211,6 +196,27 @@ public class BooksController implements Initializable {
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
+                        });
+                    }
+
+                    @Override
+                    protected void updateItem(Void aVoid, boolean b) {
+                        super.updateItem(aVoid, b);
+                        if(b){
+                            setGraphic(null);
+                        }else{
+                            setGraphic(button);
+                        }
+                    }
+                };
+            });
+
+            modifyTableColumn.setCellFactory(cell -> {
+                return new TableCell<>(){
+                    private Button button = new Button("Modify");
+                    {
+                        button.setOnAction(event -> {
+                            Book book = getTableView().getItems().get(getIndex());
                         });
                     }
 
