@@ -55,7 +55,7 @@ public class StudentsController implements Initializable {
     private Button addUserButton;
 
     @FXML
-    private Button resetSearchButton;
+    private Button resetButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -72,9 +72,8 @@ public class StudentsController implements Initializable {
             e.printStackTrace();
         }
 
-        serialTableColumn.setCellValueFactory(cell -> {
-            return new ReadOnlyObjectWrapper<>(cell.getTableView().getItems().indexOf(cell.getValue()) + 1);
-        });
+        serialTableColumn.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getTableView().getItems().indexOf(cell.getValue()) + 1));
+
         usernameTableColumn.setCellValueFactory(
                 new PropertyValueFactory<>("username")
         );
@@ -159,7 +158,7 @@ public class StudentsController implements Initializable {
             };
         });
 
-        resetSearchButton.setOnAction(event -> initialize(url, resourceBundle));
+        resetButton.setOnAction(event -> initialize(url, resourceBundle));
 
     }
 
@@ -221,4 +220,8 @@ public class StudentsController implements Initializable {
         }
     }
 
+    public void clear(ActionEvent event) {
+        usernameTextField.clear();
+        passwordField.clear();
+    }
 }

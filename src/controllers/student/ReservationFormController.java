@@ -1,4 +1,4 @@
-package controllers.students;
+package controllers.student;
 
 import entities.Book;
 import entities.Reservation;

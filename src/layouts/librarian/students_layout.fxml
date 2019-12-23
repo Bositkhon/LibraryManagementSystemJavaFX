@@ -29,6 +29,7 @@
                 <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#addUser" prefHeight="26.0" prefWidth="76.0" text="Add" />
                   <TextField fx:id="usernameTextField" promptText="Username" />
                   <PasswordField fx:id="passwordField" promptText="Password" />
+                  <Button mnemonicParsing="false" onAction="#clear" text="Clear" />
               </items>
             </ToolBar>
          </bottom>
@@ -37,7 +38,7 @@
               <items>
                   <TextField fx:id="searchTextField" />
                 <Button fx:id="searchButton" mnemonicParsing="false" onAction="#search" text="Search" />
-                  <Button fx:id="resetSearchButton" mnemonicParsing="false" text="Reset" />
+                  <Button fx:id="resetButton" mnemonicParsing="false" text="Reset" />
               </items>
             </ToolBar>
          </top>
