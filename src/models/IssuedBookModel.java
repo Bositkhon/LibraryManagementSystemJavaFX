@@ -4,10 +4,7 @@ import entities.IssuedBook;
 import entities.User;
 import helpers.Db;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -107,7 +104,7 @@ public class IssuedBookModel implements ModelInterface <IssuedBook> {
     }
 
     @Override
-    public boolean delete(int id) throws SQLException {
+    public boolean delete(int id) throws SQLException{
         PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
                 "DELETE FROM ISSUED_BOOKS WHERE ID = ?"
         );

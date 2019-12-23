@@ -58,15 +58,11 @@ public class BooksController implements Initializable {
     private TableColumn<Book, String> createdAtTableColumn;
 
     @FXML
-    private TableColumn<Book, Void> actionsTableColumn;
-
-    @FXML
     private TableColumn<Book, Void> deleteTableColumn;
 
     public TableColumn<Book, Void> modifyTableColumn;
 
-    @FXML
-    private TableColumn<Book, Integer> statusTableColumn;
+    public Button resetButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -86,25 +82,6 @@ public class BooksController implements Initializable {
                     new PropertyValueFactory<Book, String >("title")
             );
 
-            titleTableColumn.setCellFactory(TextFieldTableCell.<Book>forTableColumn());
-
-            titleTableColumn.setOnEditCommit(bookStringCellEditEvent -> {
-                TablePosition<Book, String> position = bookStringCellEditEvent.getTablePosition();
-                String new_value = bookStringCellEditEvent.getNewValue();
-                int row = position.getRow();
-                Book book = bookStringCellEditEvent.getTableView().getItems().get(row);
-                book.setTitle(new_value);
-                try {
-                    if(bookModel.update(book)){
-                        AlertBox.success("Book has successfully been updated");
-                    }else{
-                        AlertBox.success("Book could not be updated", book.getErrors().toString());
-                    }
-                }catch (SQLException e){
-                    e.printStackTrace();
-                }
-            });
-
             quantityTableColumn.setCellValueFactory(
                     new PropertyValueFactory<Book, Integer>("quantity")
             );
@@ -113,76 +90,14 @@ public class BooksController implements Initializable {
                     new PropertyValueFactory<Book, String >("subject")
             );
 
-            subjectTableColumn.setCellFactory(TextFieldTableCell.<Book>forTableColumn());
-
-            subjectTableColumn.setOnEditCommit(bookStringCellEditEvent -> {
-                TablePosition<Book, String> position = bookStringCellEditEvent.getTablePosition();
-                int row = position.getRow();
-                String new_value = bookStringCellEditEvent.getNewValue();
-                Book book = bookStringCellEditEvent.getTableView().getItems().get(row);
-                book.setSubject(new_value);
-                try {
-                    if(bookModel.update(book)){
-                        AlertBox.alert(
-                                Alert.AlertType.INFORMATION,
-                                "Book has successfully been updated"
-                        );
-                    }else{
-                        AlertBox.alert(
-                                Alert.AlertType.ERROR,
-                                "Book could not be updated"
-                        );
-                    }
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            });
-
             authorTableColumn.setCellValueFactory(
                     new PropertyValueFactory<Book, String >("author")
             );
 
-            authorTableColumn.setCellFactory(TextFieldTableCell.<Book>forTableColumn());
-
-            authorTableColumn.setOnEditCommit(event -> {
-                TablePosition<Book, String> position = event.getTablePosition();
-                int row = position.getRow();
-                String new_value = event.getNewValue();
-                Book book = event.getTableView().getItems().get(row);
-                book.setAuthor(new_value);
-                try{
-                    if(bookModel.update(book)){
-                        AlertBox.success("Book has already been updated");
-                    }else{
-                        AlertBox.error("Book could not be updated", book.getErrors().toString());
-                    }
-                }catch (SQLException e){
-                    e.printStackTrace();
-                }
-            });
 
             isbnTableColumn.setCellValueFactory(
                     new PropertyValueFactory<Book, String>("isbn")
             );
-
-            isbnTableColumn.setCellFactory(TextFieldTableCell.<Book>forTableColumn());
-
-            isbnTableColumn.setOnEditCommit(event -> {
-                TablePosition<Book, String> position = event.getTablePosition();
-                int row = position.getRow();
-                String new_value = event.getNewValue();
-                Book book = event.getTableView().getItems().get(row);
-                try{
-                    if(bookModel.update(book)){
-                        AlertBox.success("Book has already been updated");
-                    }else{
-                        AlertBox.error("Book could not be updated", book.getErrors().toString());
-                    }
-                }catch (SQLException e){
-                    e.printStackTrace();
-                }
-            });
 
             publishedDateTableColumn.setCellValueFactory(column -> {
                 return new SimpleObjectProperty<>(column.getValue().getPublishedDate());
@@ -253,6 +168,8 @@ public class BooksController implements Initializable {
 
             createdAtTableColumn.setCellValueFactory(property -> new SimpleStringProperty(property.getValue().getCreatedAt().toString()));
 
+            resetButton.setOnAction( e -> initialize(url, resourceBundle));
+
             ObservableList<Book> books = FXCollections.observableArrayList((new BookModel()).getAll());
             booksTableView.setItems(books);
         } catch (SQLException e) {
@@ -269,7 +186,7 @@ public class BooksController implements Initializable {
     @FXML
     private Spinner<Integer> quantitySpinner;
 
-    public void addBook(ActionEvent event){
+    public void add(ActionEvent event){
         BookModel bookModel = new BookModel();
         Book book = new Book();
         book.setTitle(titleTextField.getText());
@@ -306,7 +223,7 @@ public class BooksController implements Initializable {
     @FXML
     private TextField searchTextField;
 
-    public void searchForBook(){
+    public void search(){
         BookModel bookModel = new BookModel();
         if(!searchTextField.getText().isEmpty()){
             try {

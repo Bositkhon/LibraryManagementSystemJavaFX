@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ResourceBundle;
 
 public class IssuedBooksController implements Initializable {
@@ -106,6 +107,7 @@ public class IssuedBooksController implements Initializable {
                         IssuedBook issuedBook = getTableView().getItems().get(getIndex());
                         IssuedBookModel issuedBookModel1 = new IssuedBookModel();
                         try {
+                            System.out.println(issuedBook.getId());
                             if(issuedBookModel.delete(issuedBook.getId())){
                                 getTableView().getItems().remove(issuedBook);
                                 AlertBox.success("Issue has successfully been deleted");

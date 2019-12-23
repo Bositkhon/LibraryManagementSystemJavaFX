@@ -5,11 +5,10 @@ import helpers.AlertBox;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import models.IssuedBooksFineModel;
 
 import java.net.URL;
@@ -28,6 +27,8 @@ public class FinedBooksController implements Initializable {
     public TableColumn<IssuedBooksFine, String> isbnTableColumn;
     public TableColumn<IssuedBooksFine, String> reasonTableColumn;
     public TableColumn<IssuedBooksFine, Void> unfineTableColumn;
+    public TextField searchTextField;
+    public Button resetButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -119,12 +120,32 @@ public class FinedBooksController implements Initializable {
             };
         });
 
+        resetButton.setOnAction(e -> initialize(url, resourceBundle));
+
         try {
             ObservableList<IssuedBooksFine> fines = FXCollections.observableArrayList(issuedBooksFineModel.getAll());
             System.out.println(fines);
             issuedBooksFineTableView.setItems(fines);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void search(ActionEvent event) {
+        if(searchTextField.getText().isEmpty()){
+            AlertBox.error("Field can not be empty");
+        }else{
+            try {
+                IssuedBooksFineModel model = new IssuedBooksFineModel();
+                ObservableList<IssuedBooksFine> list = FXCollections.observableArrayList(model.search(searchTextField.getText()));
+                if(list.isEmpty()){
+                    AlertBox.alert(Alert.AlertType.INFORMATION, "No such book");
+                }else{
+                    this.issuedBooksFineTableView.setItems(list);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

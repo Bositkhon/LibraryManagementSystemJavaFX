@@ -127,16 +127,17 @@ public class IssuedBooksFineModel implements ModelInterface <IssuedBooksFine> {
         value = "%" + value;
         value = value + "%";
         PreparedStatement preparedStatement = Db.getInstance().getConnection().prepareStatement(
-//SELECT * FROM ISSUED_BOOKS IB LEFT JOIN BOOKS B on IB.BOOK_ID = B.ID RIGHT JOIN ISSUED_BOOKS_FINES IBF ON IBF.ISSUED_BOOK_ID=IB.ID
-            "SELECT * FROM ISSUED_BOOKS IB LEFT JOIN BOOKS B on IB.BOOK_ID = B.ID RIGHT JOIN ISSUED_BOOKS_FINES IBF ON IBF.ISSUED_BOOK_ID=IB.ID " +
-                    "WHERE B.AUTHOR LIKE ? OR B.SUBJECT LIKE ? OR B.TITLE LIKE ?" +
-                    "OR B.ISBN LIKE ? OR IBF.REASON LIKE ?"
+            "SELECT * FROM ISSUED_BOOKS IB LEFT JOIN BOOKS B on IB.BOOK_ID = B.ID " +
+                    "RIGHT JOIN ISSUED_BOOKS_FINES IBF ON IBF.ISSUED_BOOK_ID=IB.ID " +
+                    "LEFT JOIN USERS U on IB.USER_ID = U.ID WHERE B.AUTHOR LIKE ? OR B.SUBJECT LIKE ? OR B.TITLE LIKE ?" +
+                    "OR B.ISBN LIKE ? OR IBF.REASON LIKE ? OR U.USERNAME LIKE ?"
         );
         preparedStatement.setString(1, value);
         preparedStatement.setString(2, value);
         preparedStatement.setString(3, value);
         preparedStatement.setString(4, value);
         preparedStatement.setString(5, value);
+        preparedStatement.setString(6, value);
         ResultSet resultSet = preparedStatement.executeQuery();
         IssuedBooksFine issuedBooksFine = extractEntity(resultSet);
         while(issuedBooksFine != null){
