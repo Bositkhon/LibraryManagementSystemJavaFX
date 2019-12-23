@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/global.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.librarian.StudentsController">
    <children>
       <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -23,7 +25,7 @@
          <bottom>
             <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <items>
-                <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#addUser" prefHeight="26.0" prefWidth="76.0" text="Add">
+                <Button mnemonicParsing="false" onAction="#addUser" prefHeight="26.0" prefWidth="76.0" text="Add">
                      <graphic>
                         <ImageView fitHeight="13.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -41,7 +43,7 @@
             <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <items>
                   <TextField fx:id="searchTextField" />
-                <Button fx:id="searchButton" mnemonicParsing="false" onAction="#search" text="Search">
+                <Button  mnemonicParsing="false" onAction="#search" text="Search">
                      <graphic>
                         <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -49,7 +51,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="resetSearchButton" mnemonicParsing="false" text="Reset">
+                  <Button fx:id="resetButton" mnemonicParsing="false" text="Reset">
                      <graphic>
                         <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                            <image>

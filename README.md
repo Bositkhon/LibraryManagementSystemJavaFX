@@ -6,3 +6,8 @@
 - Karaev Farrukh
 - Meliev Abduxabib
 - Gafurov Shokhrukh
+
+Username - password to enter the system
+Administrator - qwerty
+Student - student
+Librarian - librarian

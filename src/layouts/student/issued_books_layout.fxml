@@ -41,7 +41,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="resetSearchButton" mnemonicParsing="false" text="Reset">
+                  <Button fx:id="resetButton" mnemonicParsing="false" text="Reset">
                      <graphic>
                         <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                            <image>

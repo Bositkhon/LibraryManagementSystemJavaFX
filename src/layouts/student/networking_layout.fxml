@@ -11,7 +11,7 @@
       <TextField fx:id="txtISBN" layoutX="217.0" layoutY="33.0" />
       <Label layoutX="117.0" layoutY="38.0" text="Enter ISBN" />
       <ImageView fx:id="imgBook" fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="sendButton" styleClass="btn--dark" layoutX="395.0" layoutY="33.0" mnemonicParsing="false" onAction="#sendRequest" text="Enter" />
+      <Button styleClass="btn--dark" layoutX="395.0" layoutY="33.0" mnemonicParsing="false" onAction="#sendRequest" text="Enter" />
       <Label fx:id="titleBook" layoutX="301.0" layoutY="72.0" />
       <Label fx:id="fieldsBook" layoutX="301.0" layoutY="111.0" />
    </children>

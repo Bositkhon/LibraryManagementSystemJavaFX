@@ -31,7 +31,7 @@
                      <children>
                         <Label text="Select period" />
                         <ChoiceBox fx:id="periodChoiceBox" prefWidth="150.0" />
-                        <Button fx:id="issueButton" mnemonicParsing="false" onAction="#issueBook" text="Issue">
+                        <Button mnemonicParsing="false" onAction="#issueBook" text="Issue">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>

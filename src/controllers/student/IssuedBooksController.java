@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -56,6 +57,8 @@ public class IssuedBooksController implements Initializable {
 
     @FXML
     private TableColumn<IssuedBook, Timestamp> createdAtTableColumn;
+
+    public Button resetButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -130,6 +133,8 @@ public class IssuedBooksController implements Initializable {
         createdAtTableColumn.setCellValueFactory(cell -> {
             return new ReadOnlyObjectWrapper<>(cell.getValue().getIssuedAt());
         });
+
+        resetButton.setOnAction(e -> initialize(url,resourceBundle));
 
         try{
             IssuedBookModel model = new IssuedBookModel();
