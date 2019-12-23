@@ -19,7 +19,6 @@ public class API {
                     .header("Content-type", "text/html")
                     .get();
         } catch (HttpStatusException err) {
-            AlertBox.error("Not found");
             return null;
         } catch (IOException e) {
             e.printStackTrace();
