@@ -30,6 +30,9 @@ public class StudentController implements Initializable, LogoutInterface {
     @FXML
     private Tab finedBooksTab;
 
+    @FXML
+    private Tab networkTab;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -41,6 +44,8 @@ public class StudentController implements Initializable, LogoutInterface {
             finedBooksTab.setContent(parent3);
             Parent parent4 = FXMLLoader.load(getClass().getResource("./../layouts/student/reservations_layout.fxml"));
             reservationsTab.setContent(parent4);
+            Parent parent5 = FXMLLoader.load(getClass().getResource("../layouts/student/networking_layout.fxml"));
+            networkTab.setContent(parent5);
         } catch (IOException e) {
             e.printStackTrace();
         }

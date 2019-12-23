@@ -2,6 +2,7 @@ package controllers;
 
 import entities.Role;
 import entities.User;
+import helpers.AlertBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,8 +71,10 @@ public class LoginController{
                 window.show();
             } else {
                 user.addError("Username or password is wrong! Please try again!");
-                errorMessagesLabel.setText(user.getErrors().toString());
+                AlertBox.error("Something wrong", user.getErrors().toString());
             }
+        }else{
+            AlertBox.error("Please try again", user.getErrors().toString());
         }
     }
 }

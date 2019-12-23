@@ -46,13 +46,12 @@ public class LibrarianController implements Initializable, LogoutInterface {
 
     @Override
     public void logout(ActionEvent event) throws IOException {
-        Stage stage = (Stage)((Parent)event.getSource()).getScene().getWindow();
-        if(Main.app.getLoggedUser() != null){
+        if(Main.app.isLoggedIn()){
             Main.app.logout();
+            Stage stage = (Stage)((Parent)event.getSource()).getScene().getWindow();
+            Parent parent = FXMLLoader.load(getClass().getResource("./../layouts/login_layout.fxml"));
+            stage.setScene(new Scene(parent));
+            stage.show();
         }
-        stage.setScene(new Scene(
-                FXMLLoader.load(getClass().getResource("./../layouts/login_layout.fxml"))
-        ));
-        stage.show();
     }
 }

@@ -7,6 +7,9 @@ import java.util.Set;
 
 public class Db {
 
+    /*
+    connect 'jdbc:derby:LibraryManagementSystemDB;create=false;user=Bositkhon;password=1q2w3e4r5t;';
+     */
     private static Db instance;
     private Connection connection;
     private String url = "jdbc:derby:LibraryManagementSystemDB";
@@ -54,7 +57,7 @@ public class Db {
             PreparedStatement preparedStatement = this.getConnection().prepareStatement(queryTemplate);
             preparedStatement.setString(1, tableName);
             Set<String> colTypeKeys = columnTypes.stringPropertyNames(), colValueKeys = columnValues.stringPropertyNames();
-            System.out.println(queryTemplate);
+//            System.out.println(queryTemplate);
             int n = 1;
             for(String key : colValueKeys){
                 if(colTypeKeys.contains(key)){

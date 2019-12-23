@@ -15,9 +15,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.RoleModel;
 import models.UserModel;
-import org.apache.derby.impl.sql.catalog.SYSCOLUMNSRowFactory;
-
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.time.format.DateTimeFormatter;
@@ -25,7 +24,6 @@ import java.util.List;
 
 
 public class Main extends Application {
-
     public static App app = new App();
 
     @Override
@@ -36,7 +34,7 @@ public class Main extends Application {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         launch(args);
     }
 }

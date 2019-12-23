@@ -15,18 +15,18 @@
                 <TabPane prefHeight="558.0" prefWidth="782.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                     <tabs>
                         <Tab fx:id="booksTab" text="Issue a book" />
-                        <Tab fx:id="issuedBooksTab" text="Issued books" />
-                        <Tab fx:id="finedBooksTab" text="Fined books" />
-                        <Tab fx:id="reservationsTab" text="Reserved books" />
+                        <Tab fx:id="issuedBooksTab" text="My issued books" />
+                        <Tab fx:id="finedBooksTab" text="My fined books" />
+                        <Tab fx:id="reservationsTab" text="Reservations" />
+                        <Tab fx:id="networkTab" text="Search from Internet" />
                     </tabs>
                 </TabPane>
             </center>
             <top>
                 <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <items>
-                        <Button mnemonicParsing="false" text="Logout" />
-                        <Label fx:id="roleLabel" />
-                        <Label fx:id="usernameLabel" text="Student" />
+                        <Button mnemonicParsing="false" onAction="#logout" text="Logout" />
+                        <Label text="Student" />
                     </items>
                 </ToolBar>
             </top>
