@@ -1,6 +1,7 @@
 package controllers.librarian;
 
 import entities.IssuedBook;
+import entities.IssuedBooksFine;
 import helpers.AlertBox;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
@@ -140,10 +141,10 @@ public class IssuedBooksController implements Initializable {
             };
         });
 
-        fineTableColumn.setCellFactory(issuedBookVoidTableColumn -> {
+        fineTableColumn.setCellFactory(cell -> {
             return new TableCell<>() {
                 private final Button button = new Button("Fine");
-
+                private IssuedBooksFine fine;
                 {
                     button.setOnAction(event -> {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("./../../layouts/librarian/fine_form_layout.fxml"));
