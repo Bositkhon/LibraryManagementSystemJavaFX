@@ -43,34 +43,19 @@ public class StudentsController implements Initializable {
     private TableColumn<User, Void> deleteTableColumn;
 
     @FXML
+    public TableColumn<User, Void> modifyTableColumn;
+
+    @FXML
     private TextField usernameTextField;
 
     @FXML
     private PasswordField passwordField;
 
     @FXML
-    private TableColumn<User, Void> changePasswordTableColumn;
-
-    @FXML
-    private Button addUserButton;
-
-    @FXML
     private Button resetButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userTableView.setEditable(true);
-        ObservableList<User> users = FXCollections.observableArrayList();
-        try {
-            RoleModel roleModel = new RoleModel();
-            Role role = roleModel.getByTitle("Student");
-            users = FXCollections.observableArrayList(
-                    (new UserModel()).getByRole(role)
-            );
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         serialTableColumn.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getTableView().getItems().indexOf(cell.getValue()) + 1));
 
@@ -90,51 +75,7 @@ public class StudentsController implements Initializable {
             return null;
         });
 
-        try {
-            ObservableList<Role> roles = FXCollections.observableArrayList((new RoleModel()).getAll());
-            roleTableColumn.setCellFactory(ChoiceBoxTableCell.<User, Role>forTableColumn(roles));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        roleTableColumn.setOnEditCommit( (TableColumn.CellEditEvent<User, Role> event)->{
-            TablePosition<User, Role> pos = event.getTablePosition();
-            Role new_role = event.getNewValue();
-            int row = pos.getRow();
-            User user = event.getTableView().getItems().get(row);
-            user.setRoleId(new_role.getId());
-        });
-
         createdAtTableColumn.setCellValueFactory(timestamp -> new SimpleStringProperty(timestamp.getValue().getCreatedAt().toString()));
-
-        userTableView.setItems(users);
-
-
-        usernameTableColumn.setOnEditCommit( (TableColumn.CellEditEvent<User, String> event) -> {
-            UserModel userModel = new UserModel();
-            TablePosition<User, String> pos = event.getTablePosition();
-            String new_value = event.getNewValue();
-            int row = pos.getRow();
-            User user = event.getTableView().getItems().get(row);
-            user.setUsername(new_value);
-            try {
-                if(userModel.update(user)){
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Success");
-                    alert.setHeaderText("User has successfully been updated");
-                    alert.setContentText(null);
-                    alert.showAndWait();
-                }else{
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("The user could not be updated");
-                    alert.setContentText(user.getErrors().toString());
-                    alert.showAndWait();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } );
 
         deleteTableColumn.setCellFactory(userButtonTableColumn -> {
             return new TableCell<User, Void>(){
@@ -159,6 +100,20 @@ public class StudentsController implements Initializable {
         });
 
         resetButton.setOnAction(event -> initialize(url, resourceBundle));
+
+        ObservableList<User> users = FXCollections.observableArrayList();
+        try {
+            RoleModel roleModel = new RoleModel();
+            Role role = roleModel.getByTitle("Student");
+            users = FXCollections.observableArrayList(
+                    (new UserModel()).getByRole(role)
+            );
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        userTableView.setItems(users);
 
     }
 
